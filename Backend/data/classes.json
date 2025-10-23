@@ -1,0 +1,34 @@
+[
+    {
+        "id": "425e58ef-ecbc-466a-a2ee-79226213e491",
+        "name": "CN",
+        "teacher_id": "b9bee67d-47f5-4042-8b21-a3cf96e01ef2",
+        "students": []
+    },
+    {
+        "id": "9715f36b-c389-4660-9772-64dd55124c52",
+        "name": "ml",
+        "teacher_id": "8f5f7eb5-8737-46b4-aad1-4ab2e2d71437",
+        "students": [
+            "60efdcd8-c187-464a-b0d9-808829962b38",
+            "8f5f7eb5-8737-46b4-aad1-4ab2e2d71437"
+        ]
+    },
+    {
+        "id": "91980be0-dc91-4f7f-93be-045d5b8aa61f",
+        "name": "CN",
+        "teacher_id": "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
+        "students": [
+            "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
+            "cbc4696b-4d59-4e40-8622-951fce6f5755"
+        ]
+    },
+    {
+        "id": "d71ad68c-3f5c-400b-b06d-44924cec4960",
+        "name": "ML",
+        "teacher_id": "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
+        "students": [
+            "d8a13ede-367b-44f6-b551-348e7f842d20"
+        ]
+    }
+]

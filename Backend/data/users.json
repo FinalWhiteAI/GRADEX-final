@@ -1,0 +1,37 @@
+[
+    {
+        "id": "b9bee67d-47f5-4042-8b21-a3cf96e01ef2",
+        "name": "kk",
+        "role": "teacher"
+    },
+    {
+        "id": "cbc4696b-4d59-4e40-8622-951fce6f5755",
+        "name": "aadi",
+        "role": "student"
+    },
+    {
+        "id": "6b0c0a2c-c4cd-4a26-a164-223fcba4d55b",
+        "name": "padi",
+        "role": "student"
+    },
+    {
+        "id": "8f5f7eb5-8737-46b4-aad1-4ab2e2d71437",
+        "name": "bvg",
+        "role": "teacher"
+    },
+    {
+        "id": "60efdcd8-c187-464a-b0d9-808829962b38",
+        "name": "ad",
+        "role": "student"
+    },
+    {
+        "id": "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
+        "name": "KK",
+        "role": "teacher"
+    },
+    {
+        "id": "d8a13ede-367b-44f6-b551-348e7f842d20",
+        "name": "Aadi",
+        "role": "student"
+    }
+]
