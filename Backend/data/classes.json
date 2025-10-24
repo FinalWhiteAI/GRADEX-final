@@ -30,5 +30,43 @@
         "students": [
             "d8a13ede-367b-44f6-b551-348e7f842d20"
         ]
+    },
+    {
+        "id": "280deb63-f745-4030-adb6-dbcdf9a62362",
+        "name": "Maths",
+        "teacher_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
+        "students": [
+            "ef562cbd-e598-4d63-8ba7-a01021cec2b6",
+            "716349fe-231a-41c6-b5c1-a54f3afa031f"
+        ]
+    },
+    {
+        "id": "a0008eb9-c8c1-410e-b38d-b8649277912d",
+        "name": "Mats",
+        "teacher_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
+        "students": []
+    },
+    {
+        "id": "cccc76b6-9603-43ff-aca6-61e84f1d788b",
+        "name": "n",
+        "teacher_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
+        "students": []
+    },
+    {
+        "id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
+        "name": "mma",
+        "teacher_id": "716349fe-231a-41c6-b5c1-a54f3afa031f",
+        "students": [
+            "ef562cbd-e598-4d63-8ba7-a01021cec2b6",
+            "965f82c6-68ae-4237-962b-17d8f22fe435"
+        ]
+    },
+    {
+        "id": "8b81b7eb-31ca-4e0b-9a52-38bac69c3308",
+        "name": "vir",
+        "teacher_id": "fa694663-e0eb-475c-9d83-7a3dc1eba182",
+        "students": [
+            "965f82c6-68ae-4237-962b-17d8f22fe435"
+        ]
     }
 ]

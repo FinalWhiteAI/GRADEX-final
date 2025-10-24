@@ -42,6 +42,7 @@ export default function ClassPage() {
     if (!noteTitle || !noteContent) return;
     await API.post(`/classes/${classId}/notes`, {
       class_id: classId,
+      user_id:userId,
       title: noteTitle,
       content: noteContent,
     });
@@ -55,6 +56,7 @@ export default function ClassPage() {
     if (!assignmentTitle || !assignmentDesc) return;
     await API.post(`/classes/${classId}/assignments`, {
       class_id: classId,
+      user_id: userId,
       title: assignmentTitle,
       description: assignmentDesc,
     });
@@ -96,7 +98,7 @@ export default function ClassPage() {
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 <BookOpen className="text-indigo-600" /> Notes
               </h2>
-              {user.role === "teacher" && (
+              {user.role === "teacher" && user.id === cls.teacher_id&&(
                 <button
                   onClick={() => setShowNoteModal(true)}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-xl flex items-center gap-1 text-sm font-semibold"
@@ -129,7 +131,7 @@ export default function ClassPage() {
               <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
                 <ClipboardList className="text-purple-600" /> Assignments
               </h2>
-              {user.role === "teacher" && (
+              {user.id === cls.teacher_id && user.role === "teacher"&&(
                 <button
                   onClick={() => setShowAssignModal(true)}
                   className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl flex items-center gap-1 text-sm font-semibold"
