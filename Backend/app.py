@@ -1,206 +1,1666 @@
-# from fastapi import FastAPI, HTTPException
-# from fastapi.middleware.cors import CORSMiddleware
-# from pydantic import BaseModel
-# from typing import List
-# import json, uuid, os
+# # # from fastapi import FastAPI, HTTPException
+# # # from fastapi.middleware.cors import CORSMiddleware
+# # # from pydantic import BaseModel
+# # # from typing import List
+# # # import json, uuid, os
 
-# app = FastAPI()
+# # # app = FastAPI()
 
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_methods=["*"],
-#     allow_headers=["*"]
-# )
+# # # app.add_middleware(
+# # #     CORSMiddleware,
+# # #     allow_origins=["*"],
+# # #     allow_methods=["*"],
+# # #     allow_headers=["*"]
+# # # )
 
-# DATA_DIR = "./data"
+# # # DATA_DIR = "./data"
 
-# def load_json(file):
-#     path = os.path.join(DATA_DIR, file)
-#     if not os.path.exists(path):
-#         with open(path, "w") as f:
-#             json.dump([], f)
-#     with open(path, "r") as f:
-#         return json.load(f)
+# # # def load_json(file):
+# # #     path = os.path.join(DATA_DIR, file)
+# # #     if not os.path.exists(path):
+# # #         with open(path, "w") as f:
+# # #             json.dump([], f)
+# # #     with open(path, "r") as f:
+# # #         return json.load(f)
 
-# def save_json(file, data):
-#     path = os.path.join(DATA_DIR, file)
-#     with open(path, "w") as f:
-#         json.dump(data, f, indent=4)
+# # # def save_json(file, data):
+# # #     path = os.path.join(DATA_DIR, file)
+# # #     with open(path, "w") as f:
+# # #         json.dump(data, f, indent=4)
 
-# # -------------------- MODELS --------------------
-# class User(BaseModel):
-#     id: str = None
+# # # # -------------------- MODELS --------------------
+# # # class User(BaseModel):
+# # #     id: str = None
+# # #     name: str
+# # #     role: str  # "teacher" or "student"
+
+# # # class Class(BaseModel):
+# # #     id: str = None
+# # #     name: str
+# # #     teacher_id: str
+# # #     students: List[str] = []
+
+# # # class Note(BaseModel):
+# # #     id: str = None
+# # #     class_id: str
+# # #     title: str
+# # #     content: str
+
+# # # class Assignment(BaseModel):
+# # #     id: str = None
+# # #     class_id: str
+# # #     title: str
+# # #     description: str
+
+# # # class Submission(BaseModel):
+# # #     id: str = None
+# # #     assignment_id: str
+# # #     student_id: str
+# # #     content: str
+
+# # # class Message(BaseModel):
+# # #     id: str = None
+# # #     class_id: str
+# # #     user_id: str
+# # #     content: str
+
+# # # # -------------------- USERS --------------------
+# # # @app.get("/users")
+# # # def get_users():
+# # #     return load_json("users.json")
+
+# # # @app.post("/users")
+# # # def create_user(user: User):
+# # #     users = load_json("users.json")
+# # #     user.id = str(uuid.uuid4())
+# # #     users.append(user.dict())
+# # #     save_json("users.json", users)
+# # #     return user
+
+# # # @app.get("/users/{user_id}")
+# # # def get_user(user_id: str):
+# # #     users = load_json("users.json")
+# # #     for u in users:
+# # #         if u["id"] == user_id:
+# # #             return u
+# # #     raise HTTPException(404, "User not found")
+
+# # # # -------------------- CLASSES --------------------
+# # # @app.post("/classes")
+# # # def create_class(cls: Class):
+# # #     classes = load_json("classes.json")
+# # #     cls.id = str(uuid.uuid4())
+# # #     classes.append(cls.dict())
+# # #     save_json("classes.json", classes)
+# # #     return cls
+
+# # # @app.get("/classes/{class_id}")
+# # # def get_class(class_id: str):
+# # #     classes = load_json("classes.json")
+# # #     for c in classes:
+# # #         if c["id"] == class_id:
+# # #             return c
+# # #     raise HTTPException(404, "Class not found")
+
+# # # @app.get("/users/{user_id}/classes")
+# # # def get_user_classes(user_id: str):
+# # #     classes = load_json("classes.json")
+# # #     return [c for c in classes if user_id == c["teacher_id"] or user_id in c["students"]]
+
+# # # @app.post("/classes/{class_id}/join/{user_id}")
+# # # def join_class(class_id: str, user_id: str):
+# # #     classes = load_json("classes.json")
+# # #     for c in classes:
+# # #         if c["id"] == class_id:
+# # #             if user_id not in c["students"]:
+# # #                 c["students"].append(user_id)
+# # #                 save_json("classes.json", classes)
+# # #             return c
+# # #     raise HTTPException(404, "Class not found")
+
+# # # # -------------------- NOTES --------------------
+# # # @app.post("/classes/{class_id}/notes")
+# # # def add_note(class_id: str, note: Note):
+# # #     notes = load_json("notes.json")
+# # #     note.id = str(uuid.uuid4())
+# # #     note.class_id = class_id
+# # #     notes.append(note.dict())
+# # #     save_json("notes.json", notes)
+# # #     return note
+
+# # # @app.get("/classes/{class_id}/notes")
+# # # def get_notes(class_id: str):
+# # #     notes = load_json("notes.json")
+# # #     return [n for n in notes if n["class_id"] == class_id]
+
+# # # # -------------------- ASSIGNMENTS --------------------
+# # # @app.post("/classes/{class_id}/assignments")
+# # # def add_assignment(class_id: str, assignment: Assignment):
+# # #     assignments = load_json("assignments.json")
+# # #     assignment.id = str(uuid.uuid4())
+# # #     assignment.class_id = class_id
+# # #     assignments.append(assignment.dict())
+# # #     save_json("assignments.json", assignments)
+# # #     return assignment
+
+# # # @app.get("/classes/{class_id}/assignments")
+# # # def get_assignments(class_id: str):
+# # #     assignments = load_json("assignments.json")
+# # #     return [a for a in assignments if a["class_id"] == class_id]
+
+# # # # -------------------- SUBMISSIONS --------------------
+# # # @app.post("/assignments/{assignment_id}/submit")
+# # # def submit_assignment(assignment_id: str, submission: Submission):
+# # #     submissions = load_json("submissions.json")
+# # #     submission.id = str(uuid.uuid4())
+# # #     submission.assignment_id = assignment_id
+# # #     submissions.append(submission.dict())
+# # #     save_json("submissions.json", submissions)
+# # #     return submission
+
+# # # @app.get("/assignments/{assignment_id}/submissions")
+# # # def get_submissions(assignment_id: str):
+# # #     submissions = load_json("submissions.json")
+# # #     return [s for s in submissions if s["assignment_id"] == assignment_id]
+
+# # # # -------------------- MESSAGES --------------------
+# # # @app.post("/classes/{class_id}/messages")
+# # # def add_message(class_id: str, message: Message):
+# # #     messages = load_json("messages.json")
+# # #     message.id = str(uuid.uuid4())
+# # #     message.class_id = class_id
+# # #     messages.append(message.dict())
+# # #     save_json("messages.json", messages)
+# # #     return message
+
+# # # @app.get("/classes/{class_id}/messages")
+# # # def get_messages(class_id: str):
+# # #     messages = load_json("messages.json")
+# # #     return [m for m in messages if m["class_id"] == class_id]
+
+
+
+# # from fastapi import FastAPI
+# # from fastapi.middleware.cors import CORSMiddleware
+# # from routes import users, classes, notes, assignments, submissions, messages
+# # import os
+
+
+# # app = FastAPI(
+# #     title="Classroom API",
+# #     description="Backend with Supabase + FastAPI + SQLAlchemy",
+# #     version="1.0.0"
+# # )
+
+# # app.add_middleware(
+# #     CORSMiddleware,
+# #     allow_origins=["*"],
+# #        allow_credentials=True,
+# #     allow_methods=["*"],
+# #     allow_headers=["*"],
+# # )
+
+# # # Ensure data directory exists
+# # # os.makedirs("data", exist_ok=True)
+
+# # # Include routers
+# # app.include_router(users.router)
+# # app.include_router(classes.router)
+# # app.include_router(notes.router)
+# # app.include_router(assignments.router)
+# # app.include_router(submissions.router)
+# # app.include_router(messages.router)
+
+
+
+# # # import requests
+# # # import json
+
+# # # # Replace with your Supabase project info
+# # # SUPABASE_URL = os.getenv("SUPABASE_URL")
+# # # SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+
+# # # # Example table: users
+# # # table_name = "users"
+
+# # # # Fake user data
+# # # user_data = {
+    
+# # #     "name": "John hshsaadithya Doe",
+# # #     "email": "john@example.com",
+# # #      "password": "mypassword"
+# # # }
+
+# # # # REST API endpoint for the table
+# # # url = f"{SUPABASE_URL}/{table_name}"
+
+# # # # Headers
+# # # headers = {
+# # #     "apikey": SUPABASE_KEY,
+# # #     "Authorization": f"Bearer {SUPABASE_KEY}",
+# # #     "Content-Type": "application/json",
+# # #     "Prefer": "return=representation"  # to get the inserted row back
+# # # }
+
+# # # # Make POST request
+# # # response = requests.post(url, headers=headers, data=json.dumps(user_data))
+
+# # # # Check result
+# # # if response.status_code in [200, 201]:
+# # #     print("Inserted successfully:", response.json())
+# # # else:
+# # #     print("Error:", response.status_code, response.text)
+
+
+
+
+
+# #new one 
+
+# # app/main.py (single-file preview - secure role hierarchy updated per user's new rules)
+# # Run with: SUPABASE_URL, SUPABASE_KEY, OWNER_EMAIL set in env
+
+# from fastapi import FastAPI, HTTPException, Depends, Header, UploadFile, File
+# from pydantic import BaseModel, EmailStr
+# from typing import Optional, List
+# from supabase import create_client
+# import os
+# import secrets
+# from datetime import datetime
+# from functools import wraps
+# import json
+
+# # --------------------------
+# # Configuration / DB client
+# # --------------------------
+# # SUPABASE_URL = os.getenv('SUPABASE_URL')
+# # SUPABASE_KEY = os.getenv('SUPABASE_KEY')
+# # OWNER_EMAIL = os.getenv('OWNER_EMAIL')
+# SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwdXlwdHhsaHlubWx2ZXRlcGFoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MTMxNzQwMiwiZXhwIjoyMDc2ODkzNDAyfQ.mXqjdeRRJvZBhwbZNxtp6x-YylykL4Yq7azG9QYP_3c"
+# SUPABASE_URL="https://qpuyptxlhynmlvetepah.supabase.co"  
+# OWNER_EMAIL="aadithyanayakv07@gmail.com"
+# print("SUPABASE_URL:", SUPABASE_URL)
+# print("SUPABASE_KEY:", SUPABASE_KEY)
+# print("OWNER_EMAIL:", OWNER_EMAIL)
+
+# if not SUPABASE_URL or not SUPABASE_KEY:
+#     raise RuntimeError('Set SUPABASE_URL and SUPABASE_KEY env vars')
+# if not OWNER_EMAIL:
+#     raise RuntimeError('Set OWNER_EMAIL env var (app owner email)')
+
+# supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+
+# # --------------------------
+# # Helper utilities
+# # --------------------------
+# def get_user_row(user_id: str):
+#     r = supabase.table('users').select('*').eq('id', user_id).single().execute()
+#     return r.data if getattr(r, 'status_code', None) in (200, 201) else None
+
+# def get_user_row_by_email(email: str):
+#     r = supabase.table('users').select('*').eq('email', email).single().execute()
+#     return r.data if getattr(r, 'status_code', None) in (200,201) else None
+
+# def has_role(user_row, role: str) -> bool:
+#     # roles stored as JSON array in 'roles' column
+#     roles = user_row.get('roles') or []
+#     return role in roles
+
+# # --------------------------
+# # Pydantic models
+# # --------------------------
+# class LoginReq(BaseModel):
+#     email: EmailStr
+#     password: str
+
+# class CreateOrg(BaseModel):
 #     name: str
-#     role: str  # "teacher" or "student"
 
-# class Class(BaseModel):
-#     id: str = None
-#     name: str
-#     teacher_id: str
-#     students: List[str] = []
+# class AddUserReq(BaseModel):
+#     email: EmailStr
+#     full_name: str
 
-# class Note(BaseModel):
-#     id: str = None
+# class CreateClassReq(BaseModel):
+#     org_id: str
+#     title: str
+#     description: Optional[str] = None
+
+# class JoinClassReq(BaseModel):
+#     class_code: str
+
+# class CreateAssignmentReq(BaseModel):
 #     class_id: str
 #     title: str
-#     content: str
+#     description: Optional[str] = None
+#     due_at: Optional[datetime] = None
+#     assignment_type: Optional[str] = 'file'  # file, text, mixed
 
-# class Assignment(BaseModel):
-#     id: str = None
-#     class_id: str
-#     title: str
-#     description: str
-
-# class Submission(BaseModel):
-#     id: str = None
+# class SubmitReq(BaseModel):
 #     assignment_id: str
-#     student_id: str
-#     content: str
+#     text_content: Optional[str] = None
 
-# class Message(BaseModel):
-#     id: str = None
+# class NoteCreateReq(BaseModel):
 #     class_id: str
-#     user_id: str
+#     title: str
+#     file_path: str
+
+# class FinalMarkReq(BaseModel):
+#     org_id: str
+#     student_id: str
+#     subject_name: str
+#     unit_name: str
+#     marks: float
+
+# class MessageReq(BaseModel):
+#     class_id: str
+#     receiver_id: str
 #     content: str
+#     is_public: Optional[bool] = False 
 
-# # -------------------- USERS --------------------
-# @app.get("/users")
-# def get_users():
-#     return load_json("users.json")
+# # --------------------------
+# # Auth dependency (validate Supabase token)
+# # --------------------------
+# from fastapi import Security
 
-# @app.post("/users")
-# def create_user(user: User):
-#     users = load_json("users.json")
-#     user.id = str(uuid.uuid4())
-#     users.append(user.dict())
-#     save_json("users.json", users)
-#     return user
+# def get_current_user(authorization: Optional[str] = Header(None)):
+#     if not authorization:
+#         raise HTTPException(status_code=401, detail='Missing Authorization header')
+#     if not authorization.startswith('Bearer '):
+#         raise HTTPException(status_code=401, detail='Invalid Authorization header')
+#     token = authorization.split(' ',1)[1]
+#     try:
+#         user_resp = supabase.auth.get_user(token=token)
+#     except Exception:
+#         raise HTTPException(status_code=401, detail='Invalid token')
 
-# @app.get("/users/{user_id}")
-# def get_user(user_id: str):
-#     users = load_json("users.json")
-#     for u in users:
-#         if u["id"] == user_id:
-#             return u
-#     raise HTTPException(404, "User not found")
+#     user_obj = None
+#     try:
+#         user_obj = user_resp.data.user if hasattr(user_resp, 'data') and user_resp.data else None
+#     except Exception:
+#         user_obj = None
+#     if not user_obj:
+#         if isinstance(user_resp, dict) and user_resp.get('user'):
+#             user_obj = user_resp['user']
+#     if not user_obj:
+#         raise HTTPException(status_code=401, detail='Unauthorized')
 
-# # -------------------- CLASSES --------------------
-# @app.post("/classes")
-# def create_class(cls: Class):
-#     classes = load_json("classes.json")
-#     cls.id = str(uuid.uuid4())
-#     classes.append(cls.dict())
-#     save_json("classes.json", classes)
-#     return cls
+#     app_user = get_user_row(user_obj.id)
+#     if not app_user:
+#         # In this design there is NO public signup; owner/admin/class-teacher create users.
+#         raise HTTPException(status_code=403, detail='User not registered in app DB')
+#     return app_user
 
-# @app.get("/classes/{class_id}")
-# def get_class(class_id: str):
-#     classes = load_json("classes.json")
-#     for c in classes:
-#         if c["id"] == class_id:
-#             return c
-#     raise HTTPException(404, "Class not found")
+# # --------------------------
+# # Role guard helpers (supports multiple roles per user)
+# # --------------------------
+# def require_any_role(*roles):
+#     def decorator(func):
+#         @wraps(func)
+#         def wrapper(*args, current_user=Depends(get_current_user), **kwargs):
+#             user_roles = current_user.get('roles') or []
+#             if not any(r in user_roles for r in roles):
+#                 raise HTTPException(status_code=403, detail='Insufficient role')
+#             return func(*args, current_user=current_user, **kwargs)
+#         return wrapper
+#     return decorator
 
-# @app.get("/users/{user_id}/classes")
-# def get_user_classes(user_id: str):
-#     classes = load_json("classes.json")
-#     return [c for c in classes if user_id == c["teacher_id"] or user_id in c["students"]]
+# def require_owner(func):
+#     @wraps(func)
+#     def wrapper(*args, current_user=Depends(get_current_user), **kwargs):
+#         if current_user.get('email') != OWNER_EMAIL:
+#             raise HTTPException(status_code=403, detail='Only app owner can perform this action')
+#         return func(*args, current_user=current_user, **kwargs)
+#     return wrapper
 
-# @app.post("/classes/{class_id}/join/{user_id}")
-# def join_class(class_id: str, user_id: str):
-#     classes = load_json("classes.json")
-#     for c in classes:
-#         if c["id"] == class_id:
-#             if user_id not in c["students"]:
-#                 c["students"].append(user_id)
-#                 save_json("classes.json", classes)
-#             return c
-#     raise HTTPException(404, "Class not found")
+# # --------------------------
+# # FastAPI app & routes
+# # --------------------------
+# app = FastAPI(title='Classroom Supabase Backend - Roles as list (owner/admin/class_teacher/sub_teacher/student)')
 
-# # -------------------- NOTES --------------------
-# @app.post("/classes/{class_id}/notes")
-# def add_note(class_id: str, note: Note):
-#     notes = load_json("notes.json")
-#     note.id = str(uuid.uuid4())
-#     note.class_id = class_id
-#     notes.append(note.dict())
-#     save_json("notes.json", notes)
-#     return note
+# # ---------- AUTH (no public register) ----------
+# @app.post('/api/auth/login')
+# def login(req: LoginReq):
+#     # login with email/password (accounts are created by owner/admin/teachers)
+#     try:
+#         signin = supabase.auth.sign_in_with_password({ 'email': req.email, 'password': req.password })
+#     except Exception:
+#         raise HTTPException(status_code=401, detail='Invalid credentials')
+#     token = None
+#     try:
+#         token = signin.session.access_token
+#     except Exception:
+#         token = signin.get('access_token') if isinstance(signin, dict) else None
+#     if not token:
+#         raise HTTPException(status_code=401, detail='Login failed')
+#     return { 'access_token': token }
 
-# @app.get("/classes/{class_id}/notes")
-# def get_notes(class_id: str):
-#     notes = load_json("notes.json")
-#     return [n for n in notes if n["class_id"] == class_id]
+# # ---------- ORG / OWNER ----------
+# @app.post('/api/orgs')
+# @require_owner
+# def create_org(req: CreateOrg, current_user=Depends(get_current_user)):
+#     r = supabase.table('organizations').insert({ 'name': req.name }).execute()
+#     if getattr(r, 'status_code', None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to create org')
+#     return r.data[0]
 
-# # -------------------- ASSIGNMENTS --------------------
-# @app.post("/classes/{class_id}/assignments")
-# def add_assignment(class_id: str, assignment: Assignment):
-#     assignments = load_json("assignments.json")
-#     assignment.id = str(uuid.uuid4())
-#     assignment.class_id = class_id
-#     assignments.append(assignment.dict())
-#     save_json("assignments.json", assignments)
-#     return assignment
+# # Owner creates Admin for org
+# @app.post('/api/orgs/{org_id}/admin/create')
+# @require_owner
+# def create_admin(org_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+#     # create auth user and app user with admin role attached to org
+#     try:
+#         signup = supabase.auth.sign_up({ 'email': payload.email, 'password': secrets.token_urlsafe(12) })
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f'Auth error: {e}')
+#     user_id = None
+#     try:
+#         user_id = signup.data.user.id
+#     except Exception:
+#         if isinstance(signup, dict) and signup.get('user'):
+#             user_id = signup['user']['id']
+#     if not user_id:
+#         raise HTTPException(status_code=500, detail='Failed to create auth admin user')
+#     res = supabase.table('users').insert({
+#         'id': user_id,
+#         'email': payload.email,
+#         'full_name': payload.full_name,
+#         'roles': json.dumps(['admin']),
+#         'org_id': org_id
+#     }).execute()
+#     if getattr(res, 'status_code', None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to create admin record')
+#     return {'message':'admin created', 'user_id': user_id}
 
-# @app.get("/classes/{class_id}/assignments")
-# def get_assignments(class_id: str):
-#     assignments = load_json("assignments.json")
-#     return [a for a in assignments if a["class_id"] == class_id]
+# # ---------- Admin actions (manage class teachers) ----------
+# @app.post('/api/orgs/{org_id}/teachers/create')
+# @require_any_role('admin')
+# def create_class_teacher(org_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+#     if current_user.get('org_id') != org_id:
+#         raise HTTPException(status_code=403, detail='Not your org')
+#     try:
+#         signup = supabase.auth.sign_up({ 'email': payload.email, 'password': secrets.token_urlsafe(10) })
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f'Auth error: {e}')
+#     user_id = None
+#     try:
+#         user_id = signup.data.user.id
+#     except Exception:
+#         if isinstance(signup, dict) and signup.get('user'):
+#             user_id = signup['user']['id']
+#     if not user_id:
+#         raise HTTPException(status_code=500, detail='Failed to create class teacher')
+#     r = supabase.table('users').insert({
+#         'id': user_id,
+#         'email': payload.email,
+#         'full_name': payload.full_name,
+#         'roles': json.dumps(['class_teacher']),
+#         'org_id': org_id
+#     }).execute()
+#     if getattr(r, 'status_code', None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to create class teacher record')
+#     return {'message':'class teacher created', 'user_id': user_id}
 
-# # -------------------- SUBMISSIONS --------------------
-# @app.post("/assignments/{assignment_id}/submit")
-# def submit_assignment(assignment_id: str, submission: Submission):
-#     submissions = load_json("submissions.json")
-#     submission.id = str(uuid.uuid4())
-#     submission.assignment_id = assignment_id
-#     submissions.append(submission.dict())
-#     save_json("submissions.json", submissions)
-#     return submission
+# @app.delete('/api/orgs/{org_id}/teachers/{teacher_id}')
+# @require_any_role('admin')
+# def delete_class_teacher(org_id: str, teacher_id: str, current_user=Depends(get_current_user)):
+#     if current_user.get('org_id') != org_id:
+#         raise HTTPException(status_code=403, detail='Not your org')
+#     supabase.table('users').delete().eq('id', teacher_id).eq('org_id', org_id).execute()
+#     return {'message':'deleted teacher if existed'}
 
-# @app.get("/assignments/{assignment_id}/submissions")
-# def get_submissions(assignment_id: str):
-#     submissions = load_json("submissions.json")
-#     return [s for s in submissions if s["assignment_id"] == assignment_id]
+# # ---------- CLASS TEACHER -> add sub teacher (sub_teacher can create assignments/grade)
+# @app.post('/api/teachers/add-sub')
+# @require_any_role('class_teacher','admin')
+# def add_sub_teacher(payload: AddUserReq, current_user=Depends(get_current_user)):
+#     org_id = current_user.get('org_id')
+#     try:
+#         signup = supabase.auth.sign_up({ 'email': payload.email, 'password': secrets.token_urlsafe(10) })
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f'Auth error: {e}')
+#     user_id = None
+#     try:
+#         user_id = signup.data.user.id
+#     except Exception:
+#         if isinstance(signup, dict) and signup.get('user'):
+#             user_id = signup['user']['id']
+#     if not user_id:
+#         raise HTTPException(status_code=500, detail='Failed to create sub teacher')
+#     supabase.table('users').insert({
+#         'id': user_id,
+#         'email': payload.email,
+#         'full_name': payload.full_name,
+#         'roles': json.dumps(['sub_teacher']),
+#         'org_id': org_id
+#     }).execute()
+#     supabase.table('teacher_hierarchy').insert({
+#         'org_id': org_id,
+#         'class_teacher_id': current_user['id'],
+#         'sub_teacher_id': user_id
+#     }).execute()
+#     return {'message':'sub teacher added', 'user_id': user_id}
 
-# # -------------------- MESSAGES --------------------
-# @app.post("/classes/{class_id}/messages")
-# def add_message(class_id: str, message: Message):
-#     messages = load_json("messages.json")
-#     message.id = str(uuid.uuid4())
-#     message.class_id = class_id
-#     messages.append(message.dict())
-#     save_json("messages.json", messages)
-#     return message
+# # ---------- CLASSES ----------
+# @app.post('/api/classes')
+# @require_any_role('sub_teacher','class_teacher')
+# def create_class(req: CreateClassReq, current_user=Depends(get_current_user)):
+#     for _ in range(5):
+#         code = secrets.token_urlsafe(4).upper()
+#         q = supabase.table('classes').select('id').eq('class_code', code).execute()
+#         if getattr(q,'status_code',None) == 200 and not q.data:
+#             break
+#     ct_id = None
+#     if 'sub_teacher' in (current_user.get('roles') or []):
+#         h = supabase.table('teacher_hierarchy').select('class_teacher_id').eq('sub_teacher_id', current_user['id']).single().execute()
+#         if getattr(h,'data',None):
+#             ct_id = h.data.get('class_teacher_id')
+#     elif 'class_teacher' in (current_user.get('roles') or []):
+#         ct_id = current_user['id']
+#     body = {
+#         'org_id': req.org_id,
+#         'title': req.title,
+#         'description': req.description,
+#         'created_by': current_user['id'],
+#         'class_teacher_id': ct_id,
+#         'class_code': code
+#     }
+#     r = supabase.table('classes').insert(body).execute()
+#     if getattr(r,'status_code',None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to create class')
+#     try:
+#         supabase.table('class_memberships').insert({'class_id': r.data[0]['id'], 'user_id': current_user['id'], 'role': 'teacher'}).execute()
+#     except Exception:
+#         pass
+#     return r.data[0]
 
-# @app.get("/classes/{class_id}/messages")
-# def get_messages(class_id: str):
-#     messages = load_json("messages.json")
-#     return [m for m in messages if m["class_id"] == class_id]
+# # Students join via code; users are created by owner/admin/class-teacher so no public signup
+# @app.post('/api/classes/join')
+# @require_any_role('none','student')
+# def join_class(req: JoinClassReq, current_user=Depends(get_current_user)):
+#     q = supabase.table('classes').select('id, org_id').eq('class_code', req.class_code).single().execute()
+#     if not getattr(q,'data',None):
+#         raise HTTPException(status_code=404, detail='Class not found')
+#     class_id = q.data['id']
+#     org_id = q.data['org_id']
+#     # if the user has no student role, add it
+#     roles = json.loads(current_user.get('roles') or '[]') if isinstance(current_user.get('roles'), str) else (current_user.get('roles') or [])
+#     if 'student' not in roles:
+#         roles.append('student')
+#         supabase.table('users').update({'roles': json.dumps(roles), 'org_id': org_id}).eq('id', current_user['id']).execute()
+#     supabase.table('class_memberships').insert({'class_id': class_id, 'user_id': current_user['id'], 'role': 'student'}).execute()
+#     return {'message': 'joined'}
+
+# @app.delete('/api/classes/{class_id}')
+# @require_any_role('sub_teacher','class_teacher','admin')
+# def delete_class(class_id: str, current_user=Depends(get_current_user)):
+#     c = supabase.table('classes').select('created_by, class_teacher_id, org_id').eq('id', class_id).single().execute()
+#     if not getattr(c,'data',None):
+#         raise HTTPException(status_code=404, detail='Class not found')
+#     allowed = False
+#     # admin of same org can delete
+#     if 'admin' in (current_user.get('roles') or []) and current_user.get('org_id') == c.data.get('org_id'):
+#         allowed = True
+#     if c.data.get('created_by') == current_user['id']:
+#         allowed = True
+#     if c.data.get('class_teacher_id') == current_user['id']:
+#         allowed = True
+#     if not allowed:
+#         raise HTTPException(status_code=403, detail='Not allowed to delete this class')
+#     supabase.table('classes').delete().eq('id', class_id).execute()
+#     return {'message':'deleted'}
+
+# # ---------- ASSIGNMENTS (only sub_teacher or any user that has 'sub_teacher' role can create/upload/grade)
+# @app.post('/api/assignments')
+# @require_any_role('sub_teacher')
+# def create_assignment(req: CreateAssignmentReq, current_user=Depends(get_current_user)):
+#     cm = supabase.table('class_memberships').select('role').eq('class_id', req.class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm,'data',None) or cm.data.get('role') != 'teacher':
+#         raise HTTPException(status_code=403, detail='Only the subject teacher can create assignments for this class')
+#     if req.assignment_type not in ('file','text','mixed'):
+#         raise HTTPException(status_code=400, detail='Invalid assignment_type')
+#     body = {'class_id': req.class_id, 'created_by': current_user['id'], 'title': req.title, 'description': req.description, 'due_at': req.due_at, 'assignment_type': req.assignment_type}
+#     r = supabase.table('assignments').insert(body).execute()
+#     if getattr(r,'status_code',None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to create assignment')
+#     return r.data[0]
+
+# @app.post('/api/assignments/{assignment_id}/upload-file')
+# @require_any_role('sub_teacher')
+# def upload_assignment_file(assignment_id: str, file: UploadFile = File(...), current_user=Depends(get_current_user)):
+#     a = supabase.table('assignments').select('class_id, created_by').eq('id', assignment_id).single().execute()
+#     if not getattr(a,'data',None):
+#         raise HTTPException(status_code=404, detail='Assignment not found')
+#     cm = supabase.table('class_memberships').select('role').eq('class_id', a.data['class_id']).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm,'data',None) or cm.data.get('role') != 'teacher':
+#         raise HTTPException(status_code=403, detail='Only subject teacher can upload file for this assignment')
+#     bucket = 'assignments'
+#     filename = f"{assignment_id}/{secrets.token_hex(8)}_{file.filename}"
+#     try:
+#         content = file.file.read()
+#         supabase.storage.from_(bucket).upload(filename, content)
+#     except Exception as e:
+#         raise HTTPException(status_code=500, detail=f'Upload failed: {e}')
+#     file_path = f"{bucket}/{filename}"
+#     supabase.table('assignments').update({'file_path': file_path}).eq('id', assignment_id).execute()
+#     return {'message':'file uploaded', 'file_path': file_path}
+
+# @app.get('/api/classes/{class_id}/assignments')
+# def list_assignments(class_id: str, current_user=Depends(get_current_user)):
+#     m = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(m,'data',None):
+#         raise HTTPException(status_code=403, detail='Not a member of class')
+#     r = supabase.table('assignments').select('*').eq('class_id', class_id).execute()
+#     # note: class_teacher role is allowed to view assignments if they are a member too; but per rules class_teacher usually shouldn't create them
+#     return r.data
+
+# # ---------- SUBMISSIONS (students only)
+# @app.post('/api/submissions')
+# @require_any_role('student')
+# def submit_assignment(file: Optional[UploadFile] = File(None), payload: Optional[SubmitReq] = None, current_user=Depends(get_current_user)):
+#     if payload is None and not file:
+#         raise HTTPException(status_code=400, detail='No submission data')
+#     assignment_id = payload.assignment_id if payload else None
+#     if not assignment_id:
+#         raise HTTPException(status_code=400, detail='assignment_id required')
+#     a = supabase.table('assignments').select('class_id, assignment_type').eq('id', assignment_id).single().execute()
+#     if not getattr(a,'data',None):
+#         raise HTTPException(status_code=404, detail='Assignment not found')
+#     class_id = a.data['class_id']
+#     cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm,'data',None):
+#         raise HTTPException(status_code=403, detail='Not a member of class')
+#     file_path = None
+#     text_content = None
+#     if file:
+#         bucket = 'submissions'
+#         filename = f"{assignment_id}/{current_user['id']}/{secrets.token_hex(8)}_{file.filename}"
+#         content = file.file.read()
+#         try:
+#             supabase.storage.from_(bucket).upload(filename, content)
+#         except Exception as e:
+#             raise HTTPException(status_code=500, detail=f'Upload failed: {e}')
+#         file_path = f"{bucket}/{filename}"
+#     if payload and payload.text_content:
+#         text_content = payload.text_content
+#     existing = supabase.table('submissions').select('*').eq('assignment_id', assignment_id).eq('student_id', current_user['id']).single().execute()
+#     if getattr(existing,'data',None):
+#         supabase.table('submissions').update({'text_content': text_content, 'file_path': file_path, 'submitted_at': datetime.utcnow()}).eq('id', existing.data['id']).execute()
+#         return {'message':'updated submission'}
+#     r = supabase.table('submissions').insert({'assignment_id': assignment_id, 'student_id': current_user['id'], 'text_content': text_content, 'file_path': file_path}).execute()
+#     if getattr(r,'status_code',None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to submit')
+#     return r.data[0]
+
+# @app.get('/api/assignments/{assignment_id}/submissions')
+# @require_any_role('sub_teacher')
+# def get_submissions(assignment_id: str, current_user=Depends(get_current_user)):
+#     a = supabase.table('assignments').select('class_id, created_by').eq('id', assignment_id).single().execute()
+#     if not getattr(a,'data',None):
+#         raise HTTPException(status_code=404, detail='Assignment not found')
+#     class_id = a.data['class_id']
+#     cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+#     is_teacher = getattr(cm,'data',None) and cm.data.get('role') == 'teacher'
+#     cls = supabase.table('classes').select('class_teacher_id').eq('id', class_id).single().execute()
+#     is_supervisor = getattr(cls,'data',None) and cls.data.get('class_teacher_id') == current_user['id']
+#     # Only sub_teacher who is subject teacher or class_teacher who is also marked as teacher can view
+#     if not (is_teacher or is_supervisor):
+#         raise HTTPException(status_code=403, detail='Not allowed')
+#     r = supabase.table('submissions').select('*').eq('assignment_id', assignment_id).execute()
+#     return r.data
+
+# @app.post('/api/submissions/{submission_id}/grade')
+# @require_any_role('sub_teacher')
+# def grade_submission(submission_id: str, grade: float, current_user=Depends(get_current_user)):
+#     s = supabase.table('submissions').select('assignment_id, student_id').eq('id', submission_id).single().execute()
+#     if not getattr(s,'data',None):
+#         raise HTTPException(status_code=404, detail='Submission not found')
+#     assignment = supabase.table('assignments').select('class_id').eq('id', s.data['assignment_id']).single().execute()
+#     class_id = assignment.data['class_id']
+#     cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+#     if not (getattr(cm,'data',None) and cm.data.get('role') == 'teacher'):
+#         raise HTTPException(status_code=403, detail='Only the subject teacher can grade submissions')
+#     supabase.table('submissions').update({'grade': grade, 'graded_by': current_user['id']}).eq('id', submission_id).execute()
+#     return {'message':'graded'}
+
+# # ---------- NOTES ----------
+# @app.post('/api/notes')
+# @require_any_role('sub_teacher')
+# def upload_note(req: NoteCreateReq, current_user=Depends(get_current_user)):
+#     cm = supabase.table('class_memberships').select('role').eq('class_id', req.class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm,'data',None) or cm.data.get('role') != 'teacher':
+#         raise HTTPException(status_code=403, detail='Only subject teacher can upload notes')
+#     r = supabase.table('notes').insert({'class_id': req.class_id, 'uploaded_by': current_user['id'], 'title': req.title, 'file_path': req.file_path}).execute()
+#     if getattr(r,'status_code',None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to upload note')
+#     return r.data[0]
+
+# @app.get('/api/classes/{class_id}/notes')
+# def list_notes(class_id: str, current_user=Depends(get_current_user)):
+#     cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm,'data',None):
+#         raise HTTPException(status_code=403, detail='Not a member')
+#     r = supabase.table('notes').select('*').eq('class_id', class_id).execute()
+#     return r.data
+
+# # ---------- FINAL MARKS ----------
+# # Only users with role 'sub_teacher' (subject teachers) can add marks. Class teachers can only view grades for classes under them.
+# @app.post('/api/finalmarks')
+# @require_any_role('sub_teacher')
+# def upload_final_marks(req: FinalMarkReq, current_user=Depends(get_current_user)):
+#     stu = get_user_row(req.student_id)
+#     if not stu:
+#         raise HTTPException(status_code=404, detail='Student not found')
+#     body = req.dict()
+#     body['uploaded_by'] = current_user['id']
+#     r = supabase.table('final_marks').insert(body).execute()
+#     if getattr(r,'status_code',None) not in (200,201):
+#         raise HTTPException(status_code=500, detail='Failed to upload final marks')
+#     return {'message':'uploaded'}
+
+# # View grades: class_teacher can view grades of classes under her; admin can view grades if they have org access; sub_teacher can view grades for classes they teach
+# @app.get('/api/orgs/{org_id}/grades')
+# @require_any_role('class_teacher','admin','sub_teacher')
+# def view_all_grades(org_id: str, current_user=Depends(get_current_user)):
+#     # if class_teacher, restrict to classes where she is class_teacher
+#     roles = current_user.get('roles') or []
+#     if 'class_teacher' in roles:
+#         # find classes where this user is class_teacher and org matches
+#         classes = supabase.table('classes').select('id').eq('class_teacher_id', current_user['id']).eq('org_id', org_id).execute()
+#         class_ids = [c['id'] for c in (classes.data or [])]
+#         if not class_ids:
+#             return []
+#         r = supabase.table('final_marks').select('*').in_('class_id', class_ids).execute()
+#         return r.data
+#     # admin of org can view all grades
+#     if 'admin' in roles and current_user.get('org_id') == org_id:
+#         r = supabase.table('final_marks').select('*').eq('org_id', org_id).execute()
+#         return r.data
+#     # sub_teacher: show marks for classes they belong to as teacher
+#     if 'sub_teacher' in roles:
+#         cm = supabase.table('class_memberships').select('class_id').eq('user_id', current_user['id']).eq('role', 'teacher').execute()
+#         class_ids = [c['class_id'] for c in (cm.data or [])]
+#         if not class_ids:
+#             return []
+#         r = supabase.table('final_marks').select('*').in_('class_id', class_ids).execute()
+#         return r.data
+#     raise HTTPException(status_code=403, detail='Not allowed')
+
+# # ---------- MESSAGES (private student <-> sub teacher) ----------
+# @app.post('/api/messages')
+# @require_any_role('student','sub_teacher','class_teacher')
+# def send_message(req: MessageReq, current_user=Depends(get_current_user)):
+#     # Step 1: Check that user belongs to this class
+#     cm = supabase.table('class_memberships').select('*')\
+#         .eq('class_id', req.class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm, 'data', None):
+#         raise HTTPException(status_code=403, detail='Not a member of this class')
+
+#     # Step 2: Handle private vs public
+#     if not req.is_public:
+#         # Private message (requires receiver_id)
+#         if not req.receiver_id:
+#             raise HTTPException(status_code=400, detail='receiver_id required for private message')
+#         # Student can only message teachers
+#         if 'student' in (current_user.get('roles') or []):
+#             check = supabase.table('class_memberships').select('*')\
+#                 .eq('class_id', req.class_id).eq('user_id', req.receiver_id).single().execute()
+#             if not getattr(check, 'data', None) or check.data.get('role') != 'teacher':
+#                 raise HTTPException(status_code=403, detail='Receiver must be a teacher for this class')
+
+#     # Step 3: Insert message
+#     supabase.table('messages').insert({
+#         'class_id': req.class_id,
+#         'sender_id': current_user['id'],
+#         'receiver_id': req.receiver_id if not req.is_public else None,
+#         'content': req.content,
+#         'is_public': req.is_public
+#     }).execute()
+
+#     return {'message': 'sent', 'type': 'public' if req.is_public else 'private'}
+
+# @app.get('/api/classes/{class_id}/messages')
+# @require_any_role('student','sub_teacher','class_teacher')
+# def get_messages(class_id: str, current_user=Depends(get_current_user)):
+#     # Must belong to the class
+#     cm = supabase.table('class_memberships').select('*')\
+#         .eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+#     if not getattr(cm, 'data', None):
+#         raise HTTPException(status_code=403, detail='Not a member')
+
+#     user_id = current_user['id']
+
+#     # Show all public messages + private ones where user is involved
+#     r = supabase.table('messages').select('*').eq('class_id', class_id)\
+#         .or_(f"(is_public.eq.true),(sender_id.eq.{user_id}),(receiver_id.eq.{user_id})").execute()
+
+#     return r.data
+
+# # ---------- HEALTH ----------
+# @app.get('/')
+# def root():
+#     return {'message':'API up'}
+
+# # --------------------------
+# # Notes & next steps
+# # --------------------------
+# # - Key model change: users now have a 'roles' JSON array instead of a single global_role string.
+# # - No public signup: Owner/Admin/ClassTeacher create users by email. When created they get initial roles assigned.
+# # - Role semantics:
+# #     * owner: app owner (env var) - creates orgs and admins
+# #     * admin: org admin - manages class_teachers; does NOT create assignments unless also granted sub_teacher role
+# #     * class_teacher: managerial role - can view grades for classes under her and manage sub-teachers
+# #     * sub_teacher: operational teacher - can create classes, assignments, upload notes, grade students
+# #     * student: can join classes and submit assignments
+# # - Roles are additive (a user can be both admin & sub_teacher etc). Endpoints check for required roles explicitly.
+# # - You should add DB migrations to change 'global_role' -> 'roles' (JSON) and update existing rows.
+# # - Next I can: 1) update the canvas file to include migrations & DDL, 2) split into routers, 3) generate RLS policies, or 4) produce curl/Postman flows demonstrating owner->create admin->create class_teacher->add sub_teacher->create class->student join->assignment->grade. 
 
 
+# app/main.py
+"""
+Complete single-file FastAPI backend for Classroom app (Supabase).
+Features:
+- Owner / Admin / ClassTeacher / SubTeacher / Student roles (roles stored as JSON array)
+- Optional Departments for every org (school, college, university)
+- Manual flows: create org, create admin, create teachers, create dept, create classes
+- Assignments (create, upload file), Submissions (file/text), grade submissions
+- Notes upload/list
+- Final marks upload / view (with role-based restrictions)
+- Messages: public (to class) + private
+- Bulk import: preview and import Excel/CSV with column mapping (pandas)
+- OpenAPI "Authorize" (Bearer) support for docs
+- Supabase Auth used for login / token validation
+Make sure you created DB tables (DDL provided in prior messages) and storage buckets:
+assignments, submissions, notes
+"""
+from fastapi import FastAPI, HTTPException, Depends, Header, UploadFile, File, Body, Query
+from fastapi.responses import JSONResponse
+from fastapi.openapi.utils import get_openapi
+from pydantic import BaseModel, EmailStr
+from typing import Optional, List, Dict, Any
+from supabase import create_client
+from dotenv import load_dotenv
+import os, secrets, json
+from datetime import datetime
+from functools import wraps
+from io import BytesIO
+import pandas as pd
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from routes import users, classes, notes, assignments, submissions, messages
-import os
+# -------------------------
+# Load env
+# -------------------------
+load_dotenv()
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+OWNER_EMAIL = os.getenv("OWNER_EMAIL")
+DEFAULT_ORG_TYPE = os.getenv("DEFAULT_ORG_TYPE", "school")
 
-app = FastAPI()
+if not SUPABASE_URL or not SUPABASE_KEY:
+    raise RuntimeError("Set SUPABASE_URL and SUPABASE_KEY in environment")
+if not OWNER_EMAIL:
+    raise RuntimeError("Set OWNER_EMAIL in environment")
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-# Ensure data directory exists
-os.makedirs("data", exist_ok=True)
+# -------------------------
+# Helpers
+# -------------------------
+def _data(resp):
+    return getattr(resp, "data", None)
 
-# Include routers
-app.include_router(users.router)
-app.include_router(classes.router)
-app.include_router(notes.router)
-app.include_router(assignments.router)
-app.include_router(submissions.router)
-app.include_router(messages.router)
+def parse_roles_field(roles_field: Any) -> List[str]:
+    if roles_field is None:
+        return []
+    if isinstance(roles_field, (list, tuple)):
+        return list(roles_field)
+    if isinstance(roles_field, str):
+        try:
+            parsed = json.loads(roles_field)
+            if isinstance(parsed, list):
+                return parsed
+        except Exception:
+            # comma separated fallback
+            return [r.strip() for r in roles_field.split(",") if r.strip()]
+    return []
+
+def get_user_row(user_id: str):
+    r = supabase.table('users').select('*').eq('id', user_id).single().execute()
+    return _data(r)
+
+def get_user_row_by_email(email: str):
+    if not email:
+        return None
+    r = supabase.table('users').select('*').eq('email', email).single().execute()
+    return _data(r)
+
+def org_has_departments(org_id: str) -> bool:
+    r = supabase.table('organizations').select('org_type').eq('id', org_id).single().execute()
+    d = _data(r)
+    if not d:
+        return False
+    return d.get('org_type') in ('college', 'university')  # treat both as having departments
+
+# -------------------------
+# Pydantic models
+# -------------------------
+class LoginReq(BaseModel):
+    email: EmailStr
+    password: str
+
+class CreateOrgReq(BaseModel):
+    name: str
+    org_type: Optional[str] = None  # school / college / university
+
+class AddUserReq(BaseModel):
+    email: EmailStr
+    full_name: Optional[str] = None
+    roles: Optional[List[str]] = None
+    password: Optional[str] = None
+
+class CreateDeptReq(BaseModel):
+    org_id: str
+    name: str
+    hod_id: Optional[str] = None
+
+class CreateClassReq(BaseModel):
+    org_id: str
+    title: str
+    description: Optional[str] = None
+    department_id: Optional[str] = None
+
+class JoinClassReq(BaseModel):
+    class_code: str
+
+class CreateAssignmentReq(BaseModel):
+    class_id: str
+    title: str
+    description: Optional[str] = None
+    due_at: Optional[datetime] = None
+    assignment_type: Optional[str] = 'file'  # file, text, mixed
+
+class SubmitReq(BaseModel):
+    assignment_id: str
+    text_content: Optional[str] = None
+
+class NoteCreateReq(BaseModel):
+    class_id: str
+    title: str
+    file_path: str
+
+class FinalMarkReq(BaseModel):
+    org_id: str
+    class_id: Optional[str] = None
+    student_id: str
+    subject_name: str
+    unit_name: str
+    marks: float
+
+class MessageReq(BaseModel):
+    class_id: str
+    receiver_id: Optional[str] = None
+    content: str
+    is_public: Optional[bool] = False
+
+class BulkMappingReq(BaseModel):
+    # mapping maps our internal keys to column names in the file
+    # e.g. {"name":"Full Name","email":"Email ID","role":"Role","department":"Dept","class":"Class Title","section":"Section","password":"Pwd"}
+    mapping: Dict[str, str]
+    create_departments: Optional[bool] = True
+
+# -------------------------
+# Auth dependency + guards
+# -------------------------
+def get_current_user(authorization: Optional[str] = Header(None)):
+    if not authorization:
+        raise HTTPException(status_code=401, detail='Missing Authorization header')
+    if not authorization.startswith('Bearer '):
+        raise HTTPException(status_code=401, detail='Invalid Authorization header')
+    token = authorization.split(' ',1)[1]
+    try:
+        user_resp = supabase.auth.get_user(token=token)
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=f'Invalid token: {e}')
+    # support multiple response shapes
+    user_obj = None
+    try:
+        user_obj = user_resp.user if getattr(user_resp, 'user', None) else None
+    except Exception:
+        user_obj = None
+    try:
+        if not user_obj and getattr(user_resp, 'data', None):
+            user_obj = user_resp.data.user if getattr(user_resp.data, 'user', None) else None
+    except Exception:
+        pass
+    if not user_obj and isinstance(user_resp, dict) and user_resp.get('user'):
+        user_obj = user_resp.get('user')
+    if not user_obj:
+        raise HTTPException(status_code=401, detail='Unauthorized')
+    app_user = get_user_row(user_obj.id)
+    if not app_user:
+        # enforced: no public signup
+        raise HTTPException(status_code=403, detail='User not registered in app DB')
+    return app_user
+
+def require_any_role(*roles):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, current_user=Depends(get_current_user), **kwargs):
+            user_roles = parse_roles_field(current_user.get('roles') or [])
+            if not any(r in user_roles for r in roles):
+                raise HTTPException(status_code=403, detail='Insufficient role')
+            return func(*args, current_user=current_user, **kwargs)
+        return wrapper
+    return decorator
+
+def require_owner(func):
+    @wraps(func)
+    def wrapper(*args, current_user=Depends(get_current_user), **kwargs):
+        if current_user.get('email') != OWNER_EMAIL:
+            raise HTTPException(status_code=403, detail='Only app owner can perform this action')
+        return func(*args, current_user=current_user, **kwargs)
+    return wrapper
+
+# -------------------------
+# App & OpenAPI security
+# -------------------------
+app = FastAPI(title="Classroom Backend (Single-file, Full)")
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(title=app.title, version="1.0.0", routes=app.routes)
+    openapi_schema["components"]["securitySchemes"] = {
+        "BearerAuth": {"type":"http","scheme":"bearer","bearerFormat":"JWT"}
+    }
+    openapi_schema["security"] = [{"BearerAuth": []}]
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
+
+# -------------------------
+# AUTH (login only; no public register)
+# -------------------------
+@app.post('/api/auth/login')
+def login(req: LoginReq):
+    try:
+        signin = supabase.auth.sign_in_with_password({'email': req.email, 'password': req.password})
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=f'Invalid credentials: {e}')
+    # extract token with multiple shape support
+    token = None
+    try:
+        token = signin.session.access_token
+    except Exception:
+        try:
+            token = signin.data.access_token
+        except Exception:
+            token = signin.get('access_token') if isinstance(signin, dict) else None
+    if not token:
+        raise HTTPException(status_code=401, detail='Login failed: no token returned')
+    return {'access_token': token}
+
+# -------------------------
+# ORGANIZATIONS (owner)
+# -------------------------
+@app.post('/api/orgs')
+@require_owner
+def create_org(req: CreateOrgReq, current_user=Depends(get_current_user)):
+    org_type = req.org_type or DEFAULT_ORG_TYPE
+    if org_type not in ('school','college','university'):
+        raise HTTPException(status_code=400, detail='org_type must be school|college|university')
+    r = supabase.table('organizations').insert({'name': req.name, 'org_type': org_type}).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to create org')
+    return _data(r)[0]
+
+@app.get('/api/orgs')
+@require_owner
+def list_orgs(current_user=Depends(get_current_user)):
+    r = supabase.table('organizations').select('*').execute()
+    return _data(r) or []
+
+@app.post('/api/orgs/{org_id}/admin/create')
+@require_owner
+def create_admin(org_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+    password = payload.password or secrets.token_urlsafe(10)
+    try:
+        signup = supabase.auth.sign_up({'email': payload.email, 'password': password})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Auth error: {e}')
+    user_id = None
+    try:
+        user_id = signup.user.id
+    except Exception:
+        try:
+            user_id = signup.data.user.id
+        except Exception:
+            if isinstance(signup, dict) and signup.get('user'):
+                user_id = signup['user']['id']
+    if not user_id:
+        raise HTTPException(status_code=500, detail='Failed to create auth admin user')
+    res = supabase.table('users').insert({
+        'id': user_id,
+        'email': payload.email,
+        'full_name': payload.full_name,
+        'roles': json.dumps(['admin']),
+        'org_id': org_id
+    }).execute()
+    if getattr(res,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to create admin record')
+    return {'message':'admin created', 'user_id': user_id}
+
+# -------------------------
+# ADMIN actions
+# -------------------------
+@app.post('/api/orgs/{org_id}/teachers/create')
+@require_any_role('admin')
+def create_class_teacher(org_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+    if current_user.get('org_id') != org_id:
+        raise HTTPException(status_code=403, detail='Not your org')
+    password = payload.password or secrets.token_urlsafe(8)
+    try:
+        signup = supabase.auth.sign_up({'email': payload.email, 'password': password})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Auth error: {e}')
+    user_id = None
+    try:
+        user_id = signup.user.id
+    except Exception:
+        try:
+            user_id = signup.data.user.id
+        except Exception:
+            if isinstance(signup, dict) and signup.get('user'):
+                user_id = signup['user']['id']
+    if not user_id:
+        raise HTTPException(status_code=500, detail='Failed to create class teacher')
+    r = supabase.table('users').insert({
+        'id': user_id,
+        'email': payload.email,
+        'full_name': payload.full_name,
+        'roles': json.dumps(['class_teacher']),
+        'org_id': org_id
+    }).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to create class teacher record')
+    return {'message':'class teacher created', 'user_id': user_id}
+
+@app.delete('/api/orgs/{org_id}/teachers/{teacher_id}')
+@require_any_role('admin')
+def delete_class_teacher(org_id: str, teacher_id: str, current_user=Depends(get_current_user)):
+    if current_user.get('org_id') != org_id:
+        raise HTTPException(status_code=403, detail='Not your org')
+    supabase.table('users').delete().eq('id', teacher_id).eq('org_id', org_id).execute()
+    return {'message':'deleted teacher if existed'}
+
+# -------------------------
+# DEPARTMENTS (optional)
+# -------------------------
+@app.post('/api/departments/create')
+@require_any_role('admin')
+def create_department(req: CreateDeptReq, current_user=Depends(get_current_user)):
+    if current_user.get('org_id') != req.org_id:
+        raise HTTPException(status_code=403, detail='Not your org')
+    r = supabase.table('departments').insert({
+        'org_id': req.org_id,
+        'name': req.name,
+        'hod_id': req.hod_id
+    }).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to create department')
+    return _data(r)[0]
+
+@app.get('/api/orgs/{org_id}/departments')
+@require_any_role('admin','class_teacher','sub_teacher')
+def list_departments(org_id: str, current_user=Depends(get_current_user)):
+    r = supabase.table('departments').select('*').eq('org_id', org_id).execute()
+    return _data(r) or []
+
+# -------------------------
+# TEACHER HIERARCHY -> add sub-teacher
+# -------------------------
+@app.post('/api/teachers/add-sub')
+@require_any_role('class_teacher','admin')
+def add_sub_teacher(payload: AddUserReq, current_user=Depends(get_current_user)):
+    org_id = current_user.get('org_id')
+    password = payload.password or secrets.token_urlsafe(10)
+    try:
+        signup = supabase.auth.sign_up({'email': payload.email, 'password': password})
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Auth error: {e}')
+    user_id = None
+    try:
+        user_id = signup.user.id
+    except Exception:
+        try:
+            user_id = signup.data.user.id
+        except Exception:
+            if isinstance(signup, dict) and signup.get('user'):
+                user_id = signup['user']['id']
+    if not user_id:
+        raise HTTPException(status_code=500, detail='Failed to create sub teacher')
+    supabase.table('users').insert({
+        'id': user_id,
+        'email': payload.email,
+        'full_name': payload.full_name,
+        'roles': json.dumps(['sub_teacher']),
+        'org_id': org_id
+    }).execute()
+    supabase.table('teacher_hierarchy').insert({
+        'org_id': org_id,
+        'class_teacher_id': current_user['id'],
+        'sub_teacher_id': user_id
+    }).execute()
+    return {'message':'sub teacher added', 'user_id': user_id}
+
+# -------------------------
+# CLASSES
+# -------------------------
+@app.post('/api/classes')
+@require_any_role('sub_teacher','class_teacher')
+def create_class(req: CreateClassReq, current_user=Depends(get_current_user)):
+    # if org uses departments, department_id recommended but optional by user's choice
+    if org_has_departments(req.org_id) and not req.department_id:
+        # we allow creation without department if admin/teacher wants; you can enforce if desired
+        pass
+    # unique class code
+    for _ in range(6):
+        code = secrets.token_urlsafe(4).upper()
+        q = supabase.table('classes').select('id').eq('class_code', code).execute()
+        if getattr(q,'data',None) in (None, []) or not q.data:
+            break
+    ct_id = None
+    if 'sub_teacher' in parse_roles_field(current_user.get('roles', [])):
+        h = supabase.table('teacher_hierarchy').select('class_teacher_id').eq('sub_teacher_id', current_user['id']).single().execute()
+        if getattr(h,'data',None):
+            ct_id = h.data.get('class_teacher_id')
+    elif 'class_teacher' in parse_roles_field(current_user.get('roles', [])):
+        ct_id = current_user['id']
+    body = {
+        'org_id': req.org_id,
+        'title': req.title,
+        'description': req.description,
+        'created_by': current_user['id'],
+        'class_teacher_id': ct_id,
+        'class_code': code,
+        'department_id': req.department_id if getattr(req, 'department_id', None) else None
+    }
+    r = supabase.table('classes').insert(body).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to create class')
+    try:
+        supabase.table('class_memberships').insert({'class_id': r.data[0]['id'], 'user_id': current_user['id'], 'role': 'teacher'}).execute()
+    except Exception:
+        pass
+    return r.data[0]
+
+@app.post('/api/classes/join')
+@require_any_role('student','none')
+def join_class(req: JoinClassReq, current_user=Depends(get_current_user)):
+    q = supabase.table('classes').select('id, org_id').eq('class_code', req.class_code).single().execute()
+    if not getattr(q,'data',None):
+        raise HTTPException(status_code=404, detail='Class not found')
+    class_id = q.data['id']
+    org_id = q.data['org_id']
+    roles = parse_roles_field(current_user.get('roles') or [])
+    if 'student' not in roles:
+        roles.append('student')
+        supabase.table('users').update({'roles': json.dumps(roles), 'org_id': org_id}).eq('id', current_user['id']).execute()
+    supabase.table('class_memberships').insert({'class_id': class_id, 'user_id': current_user['id'], 'role': 'student'}).execute()
+    return {'message': 'joined'}
+
+@app.delete('/api/classes/{class_id}')
+@require_any_role('sub_teacher','class_teacher','admin')
+def delete_class(class_id: str, current_user=Depends(get_current_user)):
+    c = supabase.table('classes').select('created_by, class_teacher_id, org_id').eq('id', class_id).single().execute()
+    if not getattr(c,'data',None):
+        raise HTTPException(status_code=404, detail='Class not found')
+    allowed = False
+    if 'admin' in parse_roles_field(current_user.get('roles', [])) and current_user.get('org_id') == c.data.get('org_id'):
+        allowed = True
+    if c.data.get('created_by') == current_user['id']:
+        allowed = True
+    if c.data.get('class_teacher_id') == current_user['id']:
+        allowed = True
+    if not allowed:
+        raise HTTPException(status_code=403, detail='Not allowed to delete this class')
+    supabase.table('classes').delete().eq('id', class_id).execute()
+    return {'message':'deleted'}
+
+# -------------------------
+# ASSIGNMENTS (create + upload file + list)
+# -------------------------
+@app.post('/api/assignments')
+@require_any_role('sub_teacher')
+def create_assignment(req: CreateAssignmentReq, current_user=Depends(get_current_user)):
+    cm = supabase.table('class_memberships').select('role').eq('class_id', req.class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None) or cm.data.get('role') != 'teacher':
+        raise HTTPException(status_code=403, detail='Only the subject teacher can create assignments for this class')
+    if req.assignment_type not in ('file','text','mixed'):
+        raise HTTPException(status_code=400, detail='Invalid assignment_type')
+    body = {'class_id': req.class_id, 'created_by': current_user['id'], 'title': req.title, 'description': req.description, 'due_at': req.due_at, 'assignment_type': req.assignment_type}
+    r = supabase.table('assignments').insert(body).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to create assignment')
+    return r.data[0]
+
+@app.post('/api/assignments/{assignment_id}/upload-file')
+@require_any_role('sub_teacher')
+def upload_assignment_file(assignment_id: str, file: UploadFile = File(...), current_user=Depends(get_current_user)):
+    a = supabase.table('assignments').select('class_id, created_by').eq('id', assignment_id).single().execute()
+    if not getattr(a,'data',None):
+        raise HTTPException(status_code=404, detail='Assignment not found')
+    cm = supabase.table('class_memberships').select('role').eq('class_id', a.data['class_id']).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None) or cm.data.get('role') != 'teacher':
+        raise HTTPException(status_code=403, detail='Only subject teacher can upload file for this assignment')
+    bucket = 'assignments'
+    filename = f"{assignment_id}/{secrets.token_hex(8)}_{file.filename}"
+    try:
+        content = file.file.read()
+        supabase.storage.from_(bucket).upload(filename, content)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f'Upload failed: {e}')
+    file_path = f"{bucket}/{filename}"
+    supabase.table('assignments').update({'file_path': file_path}).eq('id', assignment_id).execute()
+    return {'message':'file uploaded', 'file_path': file_path}
+
+@app.get('/api/classes/{class_id}/assignments')
+def list_assignments(class_id: str, current_user=Depends(get_current_user)):
+    m = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(m,'data',None):
+        raise HTTPException(status_code=403, detail='Not a member of class')
+    r = supabase.table('assignments').select('*').eq('class_id', class_id).execute()
+    return _data(r) or []
+
+# -------------------------
+# SUBMISSIONS (file/text), list, grade
+# -------------------------
+@app.post('/api/submissions')
+@require_any_role('student')
+def submit_assignment(file: Optional[UploadFile] = File(None), payload: Optional[SubmitReq] = Body(None), current_user=Depends(get_current_user)):
+    # payload must include assignment_id
+    if payload is None and not file:
+        raise HTTPException(status_code=400, detail='No submission data')
+    assignment_id = payload.assignment_id if payload else None
+    if not assignment_id:
+        raise HTTPException(status_code=400, detail='assignment_id required')
+    a = supabase.table('assignments').select('class_id, assignment_type').eq('id', assignment_id).single().execute()
+    if not getattr(a,'data',None):
+        raise HTTPException(status_code=404, detail='Assignment not found')
+    class_id = a.data['class_id']
+    cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None):
+        raise HTTPException(status_code=403, detail='Not a member of class')
+    file_path = None
+    text_content = None
+    if file:
+        bucket = 'submissions'
+        filename = f"{assignment_id}/{current_user['id']}/{secrets.token_hex(8)}_{file.filename}"
+        content = file.file.read()
+        try:
+            supabase.storage.from_(bucket).upload(filename, content)
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f'Upload failed: {e}')
+        file_path = f"{bucket}/{filename}"
+    if payload and payload.text_content:
+        text_content = payload.text_content
+    existing = supabase.table('submissions').select('*').eq('assignment_id', assignment_id).eq('student_id', current_user['id']).single().execute()
+    if getattr(existing,'data',None):
+        supabase.table('submissions').update({'text_content': text_content, 'file_path': file_path, 'submitted_at': datetime.utcnow()}).eq('id', existing.data['id']).execute()
+        return {'message':'updated submission'}
+    r = supabase.table('submissions').insert({'assignment_id': assignment_id, 'student_id': current_user['id'], 'text_content': text_content, 'file_path': file_path}).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to submit')
+    return r.data[0]
+
+@app.get('/api/assignments/{assignment_id}/submissions')
+@require_any_role('sub_teacher','class_teacher')
+def get_submissions(assignment_id: str, current_user=Depends(get_current_user)):
+    a = supabase.table('assignments').select('class_id, created_by').eq('id', assignment_id).single().execute()
+    if not getattr(a,'data',None):
+        raise HTTPException(status_code=404, detail='Assignment not found')
+    class_id = a.data['class_id']
+    cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+    is_teacher = getattr(cm,'data',None) and cm.data.get('role') == 'teacher'
+    cls = supabase.table('classes').select('class_teacher_id').eq('id', class_id).single().execute()
+    is_supervisor = getattr(cls,'data',None) and cls.data.get('class_teacher_id') == current_user['id']
+    if not (is_teacher or is_supervisor):
+        raise HTTPException(status_code=403, detail='Not allowed')
+    r = supabase.table('submissions').select('*').eq('assignment_id', assignment_id).execute()
+    return _data(r) or []
+
+@app.post('/api/submissions/{submission_id}/grade')
+@require_any_role('sub_teacher')
+def grade_submission(submission_id: str, grade: float = Body(...), current_user=Depends(get_current_user)):
+    s = supabase.table('submissions').select('assignment_id, student_id').eq('id', submission_id).single().execute()
+    if not getattr(s,'data',None):
+        raise HTTPException(status_code=404, detail='Submission not found')
+    assignment = supabase.table('assignments').select('class_id').eq('id', s.data['assignment_id']).single().execute()
+    class_id = assignment.data['class_id']
+    cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+    if not (getattr(cm,'data',None) and cm.data.get('role') == 'teacher'):
+        raise HTTPException(status_code=403, detail='Only the subject teacher can grade submissions')
+    supabase.table('submissions').update({'grade': grade, 'graded_by': current_user['id']}).eq('id', submission_id).execute()
+    return {'message':'graded'}
+
+# -------------------------
+# NOTES
+# -------------------------
+@app.post('/api/notes')
+@require_any_role('sub_teacher','class_teacher')
+def upload_note(req: NoteCreateReq, current_user=Depends(get_current_user)):
+    cm = supabase.table('class_memberships').select('role').eq('class_id', req.class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None) or cm.data.get('role') != 'teacher':
+        raise HTTPException(status_code=403, detail='Only subject teacher can upload notes')
+    r = supabase.table('notes').insert({'class_id': req.class_id, 'uploaded_by': current_user['id'], 'title': req.title, 'file_path': req.file_path}).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to upload note')
+    return r.data[0]
+
+@app.get('/api/classes/{class_id}/notes')
+def list_notes(class_id: str, current_user=Depends(get_current_user)):
+    cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None):
+        raise HTTPException(status_code=403, detail='Not a member')
+    r = supabase.table('notes').select('*').eq('class_id', class_id).execute()
+    return _data(r) or []
+
+# -------------------------
+# FINAL MARKS
+# -------------------------
+@app.post('/api/finalmarks')
+@require_any_role('sub_teacher')
+def upload_final_marks(req: FinalMarkReq, current_user=Depends(get_current_user)):
+    stu = get_user_row(req.student_id)
+    if not stu:
+        raise HTTPException(status_code=404, detail='Student not found')
+    body = req.dict()
+    body['uploaded_by'] = current_user['id']
+    r = supabase.table('final_marks').insert(body).execute()
+    if getattr(r,'status_code',None) not in (200,201):
+        raise HTTPException(status_code=500, detail='Failed to upload final marks')
+    return {'message':'uploaded'}
+
+@app.get('/api/orgs/{org_id}/grades')
+@require_any_role('class_teacher','admin','sub_teacher')
+def view_all_grades(org_id: str, current_user=Depends(get_current_user)):
+    roles = parse_roles_field(current_user.get('roles') or [])
+    if 'class_teacher' in roles:
+        classes = supabase.table('classes').select('id').eq('class_teacher_id', current_user['id']).eq('org_id', org_id).execute()
+        class_ids = [c['id'] for c in (classes.data or [])]
+        if not class_ids:
+            return []
+        r = supabase.table('final_marks').select('*').in_('class_id', class_ids).execute()
+        return _data(r) or []
+    if 'admin' in roles and current_user.get('org_id') == org_id:
+        r = supabase.table('final_marks').select('*').eq('org_id', org_id).execute()
+        return _data(r) or []
+    if 'sub_teacher' in roles:
+        cm = supabase.table('class_memberships').select('class_id').eq('user_id', current_user['id']).eq('role', 'teacher').execute()
+        class_ids = [c['class_id'] for c in (cm.data or [])]
+        if not class_ids:
+            return []
+        r = supabase.table('final_marks').select('*').in_('class_id', class_ids).execute()
+        return _data(r) or []
+    raise HTTPException(status_code=403, detail='Not allowed')
+
+# -------------------------
+# MESSAGES (public + private)
+# -------------------------
+@app.post('/api/messages')
+@require_any_role('student','sub_teacher','class_teacher','admin')
+def send_message(req: MessageReq, current_user=Depends(get_current_user)):
+    # membership check
+    cm = supabase.table('class_memberships').select('*').eq('class_id', req.class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None):
+        raise HTTPException(status_code=403, detail='Not a member of this class')
+    if not req.is_public:
+        if not req.receiver_id:
+            raise HTTPException(status_code=400, detail='receiver_id required for private message')
+        # if sender is student, receiver must be a teacher
+        if 'student' in parse_roles_field(current_user.get('roles', [])):
+            check = supabase.table('class_memberships').select('*').eq('class_id', req.class_id).eq('user_id', req.receiver_id).single().execute()
+            if not getattr(check,'data',None) or check.data.get('role') != 'teacher':
+                raise HTTPException(status_code=403, detail='Receiver must be a teacher for this class')
+    supabase.table('messages').insert({
+        'class_id': req.class_id,
+        'sender_id': current_user['id'],
+        'receiver_id': req.receiver_id if not req.is_public else None,
+        'content': req.content,
+        'is_public': req.is_public
+    }).execute()
+    return {'message':'sent', 'type': 'public' if req.is_public else 'private'}
+
+@app.get('/api/classes/{class_id}/messages')
+@require_any_role('student','sub_teacher','class_teacher','admin')
+def get_messages(class_id: str, current_user=Depends(get_current_user)):
+    cm = supabase.table('class_memberships').select('*').eq('class_id', class_id).eq('user_id', current_user['id']).single().execute()
+    if not getattr(cm,'data',None):
+        raise HTTPException(status_code=403, detail='Not a member')
+    user_id = current_user['id']
+    # return public messages + private ones where user is sender or receiver
+    r = supabase.table('messages').select('*').eq('class_id', class_id).execute()
+    msgs = _data(r) or []
+    visible = [m for m in msgs if m.get('is_public') or m.get('sender_id')==user_id or m.get('receiver_id')==user_id]
+    return visible
+
+# -------------------------
+# BULK IMPORT: preview + import
+# -------------------------
+@app.post('/api/admin/preview-import')
+@require_any_role('admin')
+def preview_import(file: UploadFile = File(...), current_user=Depends(get_current_user)):
+    content = file.file.read()
+    try:
+        if file.filename.lower().endswith(('.xls','.xlsx')):
+            df = pd.read_excel(BytesIO(content))
+        else:
+            df = pd.read_csv(BytesIO(content))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f'Could not parse file: {e}')
+    preview = df.head(10).fillna('').to_dict(orient='records')
+    columns = list(df.columns)
+    return {'columns': columns, 'preview': preview}
+
+@app.post('/api/admin/import-file')
+@require_any_role('admin')
+def import_file(file: UploadFile = File(...), mapping_req: BulkMappingReq = Body(...), current_user=Depends(get_current_user)):
+    org_id = current_user.get('org_id')
+    if not org_id:
+        raise HTTPException(status_code=400, detail='Admin has no org_id assigned')
+    content = file.file.read()
+    try:
+        if file.filename.lower().endswith(('.xls','.xlsx')):
+            df = pd.read_excel(BytesIO(content))
+        else:
+            df = pd.read_csv(BytesIO(content))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f'Could not parse file: {e}')
+    mapping = mapping_req.mapping or {}
+    created = {'users':0, 'classes':0, 'departments':0, 'memberships':0, 'skipped':0, 'errors':[]}
+    for idx, row in df.iterrows():
+        try:
+            def get_col(key):
+                col = mapping.get(key) or key
+                # pandas: access by label or by integer index fallback
+                if col in row.index:
+                    return row.get(col)
+                return None
+            name = str(get_col('name') or get_col('Name') or '').strip()
+            email = str(get_col('email') or get_col('Email') or '').strip().lower()
+            role = str(get_col('role') or get_col('Role') or 'student').strip().lower()
+            dept_name = str(get_col('department') or get_col('Department') or '').strip() or None
+            class_title = str(get_col('class') or get_col('Class') or get_col('Class Title') or '').strip() or None
+            section = str(get_col('section') or get_col('Section') or '').strip() or None
+            password = str(get_col('password') or get_col('Password') or secrets.token_urlsafe(8))
+            if not email:
+                created['skipped'] += 1
+                continue
+            existing = get_user_row_by_email(email)
+            user_id = None
+            if existing:
+                user_id = existing['id']
+                # update roles
+                roles = parse_roles_field(existing.get('roles'))
+                if role and role not in roles:
+                    roles.append(role)
+                supabase.table('users').update({'full_name': name, 'roles': json.dumps(roles), 'org_id': org_id}).eq('id', user_id).execute()
+            else:
+                # create auth user
+                try:
+                    signup = supabase.auth.sign_up({'email': email, 'password': password})
+                    user_id = getattr(signup,'user',None).id if getattr(signup,'user',None) else (getattr(signup,'data',None).user.id if getattr(signup,'data',None) else None)
+                except Exception:
+                    # fallback: try lookup if already exists in auth
+                    try:
+                        eu = supabase.auth.get_user_by_email(email)
+                        user_id = getattr(eu,'user',None).id if getattr(eu,'user',None) else None
+                    except Exception:
+                        user_id = None
+                if not user_id:
+                    created['errors'].append({'row': idx, 'error': 'Could not create/find auth user', 'email': email})
+                    continue
+                roles_list = [role] if role else []
+                supabase.table('users').insert({'id': user_id, 'email': email, 'full_name': name, 'roles': json.dumps(roles_list), 'org_id': org_id}).execute()
+                created['users'] += 1
+            # department create if provided
+            dept_id = None
+            if dept_name:
+                q = supabase.table('departments').select('*').eq('org_id', org_id).eq('name', dept_name).single().execute()
+                if not getattr(q,'data',None):
+                    if mapping_req.create_departments:
+                        nd = supabase.table('departments').insert({'org_id': org_id, 'name': dept_name}).execute()
+                        dept_id = nd.data[0]['id'] if getattr(nd,'data',None) else None
+                        created['departments'] += 1
+                    else:
+                        dept_id = None
+                else:
+                    dept_id = q.data['id']
+            # class create if provided
+            class_id = None
+            if class_title:
+                q = supabase.table('classes').select('*').eq('org_id', org_id).eq('title', class_title).eq('department_id', dept_id).single().execute()
+                if not getattr(q,'data',None):
+                    code = secrets.token_urlsafe(4).upper()
+                    nc = supabase.table('classes').insert({'org_id': org_id, 'title': class_title, 'description': f"Section {section or 'General'}", 'department_id': dept_id, 'class_teacher_id': user_id if role=='class_teacher' else None, 'class_code': code}).execute()
+                    class_id = nc.data[0]['id'] if getattr(nc,'data',None) else None
+                    created['classes'] += 1
+                else:
+                    class_id = q.data['id']
+            # membership
+            if class_id and role in ('student','sub_teacher','class_teacher'):
+                mem_role = 'teacher' if role in ('sub_teacher','class_teacher') else 'student'
+                supabase.table('class_memberships').insert({'class_id': class_id, 'user_id': user_id, 'role': mem_role}).execute()
+                created['memberships'] += 1
+        except Exception as e:
+            created['errors'].append({'row': idx, 'error': str(e)})
+            continue
+    return created
+
+# -------------------------
+# HEALTH
+# -------------------------
+@app.get('/')
+def root():
+    return {'message':'API up'}
+
+# End of file

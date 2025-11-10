@@ -4,3 +4,7 @@ pydantic
 typing-extensions
 supabase
 requests
+python-dotenv
+pydantic[email]
+python-multipart
+pandas
