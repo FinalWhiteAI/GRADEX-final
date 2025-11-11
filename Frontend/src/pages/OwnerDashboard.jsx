@@ -8,6 +8,7 @@ export default function OwnerDashboard() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [orgId, setOrgId] = useState("");
+  const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
 
   const fetchOrgs = async () => {
@@ -34,6 +35,8 @@ export default function OwnerDashboard() {
       await api.post(`/api/orgs/${orgId}/admin/create`, {
         email,
         full_name: fullName,
+        password
+
       });
       alert("Admin created");
       setEmail("");
@@ -123,6 +126,13 @@ export default function OwnerDashboard() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+          <input
+        type="password"
+        placeholder="Password (optional)"
+        className="w-full p-2 mb-3 border rounded"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
           <select
             value={orgId}
             onChange={(e) => setOrgId(e.target.value)}

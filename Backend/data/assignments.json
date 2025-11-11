@@ -1,45 +1,20 @@
 [
-    {
-        "id": "5d8fa2d4-e497-40ed-b6b8-ea974fdb7c53",
-        "class_id": "9715f36b-c389-4660-9772-64dd55124c52",
-        "title": "jsjs",
-        "description": "sjsjs"
-    },
-    {
-        "id": "f190d525-60f8-4a5b-a3eb-a66dc4a40304",
-        "class_id": "91980be0-dc91-4f7f-93be-045d5b8aa61f",
-        "title": "jjj",
-        "description": "jk"
-    },
-    {
-        "id": "93a8ab2c-d51e-4e33-a46d-1f89ebe23ff0",
-        "class_id": "91980be0-dc91-4f7f-93be-045d5b8aa61f",
-        "title": "kk",
-        "description": "kk"
-    },
-    {
-        "id": "ba28af0d-ab58-4f8e-af89-fba82d7a48fb",
-        "class_id": "d71ad68c-3f5c-400b-b06d-44924cec4960",
-        "title": "jjj",
-        "description": "jjsjs"
-    },
-    {
-        "id": "59101b4c-7db9-4e06-8a85-228ca586b8e8",
-        "class_id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
-        "title": "kk",
-        "description": "kkk"
-    },
-    {
-        "id": "0a8eeeb4-265f-4f45-93d8-6f0dc26386b6",
-        "class_id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
-        "title": "sms",
-        "description": "ss"
-    },
-    {
-        "id": "4f28d726-89d9-43dd-afb0-737e78d8f3c0",
-        "class_id": "8b81b7eb-31ca-4e0b-9a52-38bac69c3308",
-        "title": "mmama",
-        "description": "mama",
-        "user_id": "fa694663-e0eb-475c-9d83-7a3dc1eba182"
-    }
+  {
+    "id": "714bb41c-aa20-4f77-846e-78adbf23148f",
+    "class_id": "79b2dc8b-cf4b-48d0-9a0c-ec9bfffd0745",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "title": "ism",
+    "description": "wriyte",
+    "due_at": null,
+    "assignment_type": "file"
+  },
+  {
+    "id": "2f0a9ea8-f4a9-4f17-be13-ffbcfe67a789",
+    "class_id": "4b509043-a1ea-4b6e-a478-70cecde911de",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "title": "jj",
+    "description": "jk",
+    "due_at": null,
+    "assignment_type": "file"
+  }
 ]

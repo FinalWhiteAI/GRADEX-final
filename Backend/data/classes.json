@@ -1,72 +1,62 @@
 [
-    {
-        "id": "425e58ef-ecbc-466a-a2ee-79226213e491",
-        "name": "CN",
-        "teacher_id": "b9bee67d-47f5-4042-8b21-a3cf96e01ef2",
-        "students": []
-    },
-    {
-        "id": "9715f36b-c389-4660-9772-64dd55124c52",
-        "name": "ml",
-        "teacher_id": "8f5f7eb5-8737-46b4-aad1-4ab2e2d71437",
-        "students": [
-            "60efdcd8-c187-464a-b0d9-808829962b38",
-            "8f5f7eb5-8737-46b4-aad1-4ab2e2d71437"
-        ]
-    },
-    {
-        "id": "91980be0-dc91-4f7f-93be-045d5b8aa61f",
-        "name": "CN",
-        "teacher_id": "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
-        "students": [
-            "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
-            "cbc4696b-4d59-4e40-8622-951fce6f5755"
-        ]
-    },
-    {
-        "id": "d71ad68c-3f5c-400b-b06d-44924cec4960",
-        "name": "ML",
-        "teacher_id": "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
-        "students": [
-            "d8a13ede-367b-44f6-b551-348e7f842d20"
-        ]
-    },
-    {
-        "id": "280deb63-f745-4030-adb6-dbcdf9a62362",
-        "name": "Maths",
-        "teacher_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
-        "students": [
-            "ef562cbd-e598-4d63-8ba7-a01021cec2b6",
-            "716349fe-231a-41c6-b5c1-a54f3afa031f"
-        ]
-    },
-    {
-        "id": "a0008eb9-c8c1-410e-b38d-b8649277912d",
-        "name": "Mats",
-        "teacher_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
-        "students": []
-    },
-    {
-        "id": "cccc76b6-9603-43ff-aca6-61e84f1d788b",
-        "name": "n",
-        "teacher_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
-        "students": []
-    },
-    {
-        "id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
-        "name": "mma",
-        "teacher_id": "716349fe-231a-41c6-b5c1-a54f3afa031f",
-        "students": [
-            "ef562cbd-e598-4d63-8ba7-a01021cec2b6",
-            "965f82c6-68ae-4237-962b-17d8f22fe435"
-        ]
-    },
-    {
-        "id": "8b81b7eb-31ca-4e0b-9a52-38bac69c3308",
-        "name": "vir",
-        "teacher_id": "fa694663-e0eb-475c-9d83-7a3dc1eba182",
-        "students": [
-            "965f82c6-68ae-4237-962b-17d8f22fe435"
-        ]
-    }
+  {
+    "id": "79b2dc8b-cf4b-48d0-9a0c-ec9bfffd0745",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "Maths",
+    "description": "fun",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "GOGBTQ",
+    "department_id": null
+  },
+  {
+    "id": "4b509043-a1ea-4b6e-a478-70cecde911de",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "Maths",
+    "description": "fun",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "GAN0DQ",
+    "department_id": null
+  },
+  {
+    "id": "6b385a7b-c235-471f-adc5-297684fd9598",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "k",
+    "description": "k",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "MCLUQG",
+    "department_id": null
+  },
+  {
+    "id": "82f73461-cbfd-46b6-bcd2-5fcd76d945fc",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "j",
+    "description": "j",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "TSE5FW",
+    "department_id": null
+  },
+  {
+    "id": "eea18956-0d6f-4cfd-9470-44b3d947d552",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "j",
+    "description": "j",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "HX_F6A",
+    "department_id": null
+  },
+  {
+    "id": "4a197764-9cff-4ecb-aeca-992b981884d9",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "j",
+    "description": "j\n",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "H6WAXQ",
+    "department_id": null
+  }
 ]

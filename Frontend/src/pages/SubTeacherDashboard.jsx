@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import api from "../api/axios";
+import { useNavigate } from "react-router-dom";
 
 export default function SubTeacherDashboard() {
   const [classes, setClasses] = useState([]);
   const [newClass, setNewClass] = useState({ title: "", description: "" });
+  const navigate=useNavigate()
 
   const fetchClasses = async () => {
     const res = await api.get("/api/classes");
@@ -58,11 +60,30 @@ export default function SubTeacherDashboard() {
         </div>
       </div>
 
+     {/* Show Existing Classes */}
       <div className="grid md:grid-cols-2 gap-4">
+        {classes.length === 0 && <p>No classes yet.</p>}
         {classes.map((cls) => (
-          <div key={cls.id} className="bg-white dark:bg-gray-800 p-4 rounded-md shadow">
-            <h2 className="font-medium">{cls.title}</h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{cls.description}</p>
+          <div
+            key={cls.id}
+            className="bg-white dark:bg-gray-800 p-4 rounded-md shadow flex flex-col justify-between"
+          >
+            <div>
+              <h2 className="font-medium">{cls.title}</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {cls.description}
+              </p>
+              <p className="text-xs mt-1 text-gray-400">Code: {cls.class_code}</p>
+            </div>
+
+            <div className="mt-3 flex justify-end">
+              <button
+                onClick={() => navigate(`/class/${cls.id}`)}
+                className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md"
+              >
+                View Class
+              </button>
+            </div>
           </div>
         ))}
       </div>

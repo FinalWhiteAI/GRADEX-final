@@ -4,7 +4,7 @@ import api from "../api/axios";
 
 export default function AdminDashboard() {
   const [teachers, setTeachers] = useState([]);
-  const [newTeacher, setNewTeacher] = useState({ email: "", full_name: "" });
+  const [newTeacher, setNewTeacher] = useState({ email: "", full_name: "",password:"" });
 
   const fetchTeachers = async () => {
     try {
@@ -23,7 +23,7 @@ export default function AdminDashboard() {
       const me = await api.get("/api/users/me");
       await api.post(`/api/orgs/${me.data.org_id}/teachers/create`, newTeacher);
       alert("Class teacher added!");
-      setNewTeacher({ email: "", full_name: "" });
+      setNewTeacher({ email: "", full_name: "",password:"" });
       fetchTeachers();
     } catch (e) {
       alert("Error adding teacher");
@@ -56,6 +56,14 @@ export default function AdminDashboard() {
             value={newTeacher.email}
             onChange={(e) =>
               setNewTeacher({ ...newTeacher, email: e.target.value })
+            }
+            className="border px-3 py-1 rounded-md"
+          /> <input
+            type="text"
+            placeholder="Password"
+            value={newTeacher.password}
+            onChange={(e) =>
+              setNewTeacher({ ...newTeacher, password: e.target.value })
             }
             className="border px-3 py-1 rounded-md"
           />

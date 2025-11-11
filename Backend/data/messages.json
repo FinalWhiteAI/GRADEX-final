@@ -1,38 +1,20 @@
 [
-    {
-        "id": "e1a25858-4863-4ff2-82cf-7e2421b36b68",
-        "class_id": "9715f36b-c389-4660-9772-64dd55124c52",
-        "user_id": "8f5f7eb5-8737-46b4-aad1-4ab2e2d71437",
-        "content": "jsjs"
-    },
-    {
-        "id": "3b4657a6-1260-4cce-a687-434cac147ee7",
-        "class_id": "9715f36b-c389-4660-9772-64dd55124c52",
-        "user_id": "60efdcd8-c187-464a-b0d9-808829962b38",
-        "content": "hh"
-    },
-    {
-        "id": "a09bf882-c2e2-47b1-abdf-5312bd0a5b65",
-        "class_id": "d71ad68c-3f5c-400b-b06d-44924cec4960",
-        "user_id": "77d352fc-dec4-45b9-85a9-f5ac1a90b683",
-        "content": "hi student"
-    },
-    {
-        "id": "cab7345c-4c4a-41c4-a8de-36afafbc79d2",
-        "class_id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
-        "user_id": "965f82c6-68ae-4237-962b-17d8f22fe435",
-        "content": "mm"
-    },
-    {
-        "id": "66c10ab3-2328-40a6-ae32-ee58a72ed102",
-        "class_id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
-        "user_id": "716349fe-231a-41c6-b5c1-a54f3afa031f",
-        "content": "ks"
-    },
-    {
-        "id": "84a3e562-e66b-4eae-8244-3ce1cf20fdb6",
-        "class_id": "58f5b206-a5a6-4fb7-8c89-9720bda4c1dd",
-        "user_id": "ef562cbd-e598-4d63-8ba7-a01021cec2b6",
-        "content": "jjs"
-    }
+  {
+    "id": "5369ff7d-492c-42d3-b65f-a424c8df9418",
+    "class_id": "79b2dc8b-cf4b-48d0-9a0c-ec9bfffd0745",
+    "sender_id": "1210083c-085a-4cf4-b499-4c269b134595",
+    "receiver_id": null,
+    "content": "hi\n",
+    "is_public": true,
+    "sent_at": "2025-11-11 16:57:26.120358"
+  },
+  {
+    "id": "3ed191cf-f0f5-4cc4-9f37-828caa902cf0",
+    "class_id": "4b509043-a1ea-4b6e-a478-70cecde911de",
+    "sender_id": "1210083c-085a-4cf4-b499-4c269b134595",
+    "receiver_id": null,
+    "content": "jj\n",
+    "is_public": true,
+    "sent_at": "2025-11-11 17:14:26.549623"
+  }
 ]
