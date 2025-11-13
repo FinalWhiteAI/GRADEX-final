@@ -58,5 +58,15 @@
     "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
     "class_code": "H6WAXQ",
     "department_id": null
+  },
+  {
+    "id": "55dc04b5-f8dc-45ed-a705-0d205d393686",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "title": "poke",
+    "description": "bjdbsjbv dkajb",
+    "created_by": "1210083c-085a-4cf4-b499-4c269b134595",
+    "class_teacher_id": "683cc023-ebd0-45ab-a74f-13f623cd3a26",
+    "class_code": "MXZ_SW",
+    "department_id": null
   }
 ]

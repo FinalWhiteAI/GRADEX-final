@@ -1,91 +1,78 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import api from "../api/axios";
-import Navbar from "../components/Navbar";
+import { useParams } from "react-router-dom";
 
 export default function Submissions() {
-  const [assignmentId, setAssignmentId] = useState("");
-  const [text, setText] = useState("");
-  const [file, setFile] = useState(null);
-  const [submissions, setSubmissions] = useState([]);
-  const [grade, setGrade] = useState("");
+  const { id } = useParams(); // assignment_id
+  const [subs, setSubs] = useState([]);
 
-  async function submitWork() {
-    const form = new FormData();
-    form.append("file", file);
-    form.append("payload", JSON.stringify({ assignment_id: assignmentId, text_content: text }));
-    await api.post("/api/submissions", form, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    alert("Submitted!");
-  }
+  const fetchSubs = async () => {
+    try {
+      const res = await api.get(`/api/assignments/${id}/submissions`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      setSubs(res.data || []);
+    } catch (err) {
+      console.log("Error fetching submissions", err);
+    }
+  };
 
-  async function loadSubs() {
-    const res = await api.get(`/api/assignments/${assignmentId}/submissions`);
-    setSubmissions(res.data);
-  }
+  const grade = async (subId, marks) => {
+    try {
+      await api.post(`/api/submissions/${subId}/grade`, { marks }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      fetchSubs();
+      alert("Graded!");
+    } catch (err) {
+      alert("Grade failed");
+    }
+  };
 
-  async function gradeSubmission(id) {
-    await api.post(`/api/submissions/${id}/grade`, grade);
-    alert("Graded!");
-    loadSubs();
-  }
+  useEffect(() => {
+    fetchSubs();
+  }, []);
 
   return (
-    <>
-      <Navbar />
-      <div className="p-6">
-        <h2 className="text-xl font-semibold mb-3">Submissions</h2>
-        <div className="flex gap-3 mb-5">
-          <input
-            placeholder="Assignment ID"
-            className="border p-2 rounded"
-            value={assignmentId}
-            onChange={(e) => setAssignmentId(e.target.value)}
-          />
-          <button onClick={loadSubs} className="bg-gray-200 px-3 py-1 rounded">
-            Load
-          </button>
+    <div className="p-4">
+      <h1 className="text-xl font-semibold mb-4">Student Submissions</h1>
+
+      {subs.length === 0 && <p>No submissions yet.</p>}
+
+      {subs.map((s) => (
+        <div
+          key={s.id}
+          className="bg-white dark:bg-gray-100 p-4 rounded-md shadow mb-4"
+        >
+          <p><strong>{s.student_name}</strong> ({s.student_email})</p>
+          <p className="mt-2">{s.text_content || "No text provided"}</p>
+
+          {s.file_path && (
+            <a
+              href={s.file_path}
+              target="_blank"
+              className="text-blue-500 underline mt-2 block"
+            >
+              Download File
+            </a>
+          )}
+
+          <div className="mt-3 flex gap-2">
+            <input
+              placeholder="Marks"
+              type="number"
+              onChange={(e) => (s.tempMarks = e.target.value)}
+              className="border px-2 py-1 rounded"
+            />
+            <button
+              onClick={() => grade(s.id, s.tempMarks)}
+              className="bg-green-600 text-white px-3 py-1 rounded-md"
+            >
+              Grade
+            </button>
+          </div>
         </div>
-
-        <textarea
-          placeholder="Your text answer"
-          className="border w-full p-2 mb-2 rounded"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        ></textarea>
-        <input type="file" onChange={(e) => setFile(e.target.files[0])} className="mb-3" />
-        <button onClick={submitWork} className="bg-indigo-600 text-white px-4 py-2 rounded">
-          Submit
-        </button>
-
-        <h3 className="mt-6 font-semibold">Submitted:</h3>
-        <ul>
-          {submissions.map((s) => (
-            <li key={s.id} className="border-b py-2">
-              <p>{s.student_id}</p>
-              <p>Grade: {s.grade ?? "Not graded"}</p>
-              {s.file_path && (
-                <a href={s.file_path} className="text-blue-600 text-sm underline" target="_blank">
-                  File
-                </a>
-              )}
-              <input
-                type="number"
-                placeholder="Grade"
-                className="border p-1 ml-2 w-16 rounded"
-                value={grade}
-                onChange={(e) => setGrade(e.target.value)}
-              />
-              <button
-                onClick={() => gradeSubmission(s.id)}
-                className="ml-2 bg-green-500 text-white px-2 py-1 rounded"
-              >
-                Grade
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </>
+      ))}
+    </div>
   );
 }

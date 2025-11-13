@@ -78,5 +78,13 @@
     "roles": "[\"student\"]",
     "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
     "hashed_password": "$2b$12$Dj0Bpqb3wEa89J3M3rq5l.DNzpxj02z0akYXrv6y/gb5CADP1sh1O"
+  },
+  {
+    "id": "3adb7bf8-8cf7-453d-8aa6-ef0daf726f64",
+    "email": "na@gmail.com",
+    "full_name": "nayak",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$oONc4oTqbesQbFvFc4/uDeDLPSpuoGWgpCxX0761r9r/4WrMi1cxu"
   }
 ]

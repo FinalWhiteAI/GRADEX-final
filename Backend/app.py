@@ -1753,6 +1753,8 @@ from fastapi.responses import JSONResponse
 from fastapi.openapi.utils import get_openapi
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
+from fastapi import Form
+
 from typing import Optional, List, Dict, Any
 from dotenv import load_dotenv
 import os, secrets, json, uuid
@@ -1811,6 +1813,14 @@ class AddUserReq(BaseModel):
     full_name: Optional[str] = None
     roles: Optional[List[str]] = None
     password: str
+from pydantic import BaseModel
+
+class AddStudentReq(BaseModel):
+    class_id: str
+    email: EmailStr
+    full_name: Optional[str] = None
+    password: Optional[str] = None
+
 
 class CreateDeptReq(BaseModel):
     org_id: str
@@ -2350,92 +2360,229 @@ def delete_class(class_id: str, current_user=Depends(get_current_user)):
     
     db_delete_one('classes', class_id)
     return {'message':'deleted'}
+
+@app.get("/api/classes/{class_id}/students")
+@require_any_role("class_teacher", "sub_teacher", "admin","student")
+def get_class_students(class_id: str, current_user=Depends(get_current_user)):
+    # Check member
+    m = db_find_one("class_memberships", class_id=class_id, user_id=current_user["id"])
+    if not m:
+        raise HTTPException(status_code=403, detail="Not part of this class")
+
+    # Fetch all memberships STUDENTS
+    members = db_find_many("class_memberships", class_id=class_id)
+
+    students = []
+    for mem in members:
+        if mem.get("role") == "student":
+            u = get_user_row(mem["user_id"])
+            if u:
+                students.append({
+                    "id": u["id"],
+                    "full_name": u.get("full_name"),
+                    "email": u.get("email")
+                })
+
+    return students
+
 # ✅ List all classes for the current teacher (class_teacher or sub_teacher)
+# @app.get("/api/classes")
+# @require_any_role("sub_teacher", "class_teacher", "admin","student")
+# def list_classes(current_user=Depends(get_current_user)):
+#     roles = parse_roles_field(current_user.get("roles", []))
+#     org_id = current_user.get("org_id")
+
+#     if "admin" in roles:
+#         # Admin sees all classes in their org
+#         classes = db_find_many("classes", org_id=org_id)
+#         return classes or []
+
+#     elif "class_teacher" in roles:
+#         # Class teacher sees their own classes
+#         classes = db_find_many("classes", class_teacher_id=current_user["id"])
+#         return classes or []
+#     elif "student" in roles:
+#         # Class teacher sees their own classes
+#         classes = db_find_many("classes", student_id=current_user["id"])
+#         return classes or []
+
+#     elif "sub_teacher" in roles:
+#         # Sub teacher sees classes of their linked class teacher
+#         link = db_find_one("teacher_hierarchy", sub_teacher_id=current_user["id"])
+#         if not link:
+#             raise HTTPException(status_code=400, detail="Sub teacher not linked to any class teacher")
+        
+#         classes = db_find_many("classes", class_teacher_id=link["class_teacher_id"])
+#         return classes or []
+
+#     # default fallback
+#     raise HTTPException(status_code=403, detail="Not allowed")
 @app.get("/api/classes")
-@require_any_role("sub_teacher", "class_teacher", "admin")
+@require_any_role("sub_teacher", "class_teacher", "admin", "student")
 def list_classes(current_user=Depends(get_current_user)):
+    """
+    Returns classes visible to the current user:
+      - admin: all classes in their org
+      - class_teacher: classes where class_teacher_id == current_user.id
+      - sub_teacher: classes belonging to their linked class_teacher
+      - student: classes where the user has a membership (role=student)
+    """
     roles = parse_roles_field(current_user.get("roles", []))
     org_id = current_user.get("org_id")
 
     if "admin" in roles:
-        # Admin sees all classes in their org
-        classes = db_find_many("classes", org_id=org_id)
-        return classes or []
+        return db_find_many("classes", org_id=org_id) or []
 
-    elif "class_teacher" in roles:
-        # Class teacher sees their own classes
-        classes = db_find_many("classes", class_teacher_id=current_user["id"])
-        return classes or []
+    if "class_teacher" in roles:
+        return db_find_many("classes", class_teacher_id=current_user["id"]) or []
 
-    elif "sub_teacher" in roles:
-        # Sub teacher sees classes of their linked class teacher
+    if "sub_teacher" in roles:
         link = db_find_one("teacher_hierarchy", sub_teacher_id=current_user["id"])
         if not link:
-            raise HTTPException(status_code=400, detail="Sub teacher not linked to any class teacher")
-        
-        classes = db_find_many("classes", class_teacher_id=link["class_teacher_id"])
-        return classes or []
+            return []
+        return db_find_many("classes", class_teacher_id=link["class_teacher_id"]) or []
 
-    # default fallback
+    if "student" in roles:
+        # list classes where this user has a membership
+        mems = db_find_many("class_memberships", user_id=current_user["id"])
+        if not mems:
+            return []
+        class_ids = [m["class_id"] for m in mems]
+        all_classes = load_db("classes")
+        return [c for c in all_classes if c["id"] in class_ids]
+
     raise HTTPException(status_code=403, detail="Not allowed")
 
+
+# @app.post("/api/teachers/add-student")
+# @require_any_role("class_teacher", "admin")
+# def add_student(
+#     class_id: str = Body(...),
+#     full_name: str = Body(...),
+#     email: EmailStr = Body(...),
+#     password: str = Body(...),
+#     current_user=Depends(get_current_user)
+# ):
+#     """Allows class_teacher or admin to manually add a student to a specific class."""
+#     org_id = current_user.get("org_id")
+#     if not org_id:
+#         raise HTTPException(status_code=400, detail="User not linked to any org")
+
+#     # Validate class exists
+#     cls = db_find_one("classes", id=class_id)
+#     if not cls:
+#         raise HTTPException(status_code=404, detail="Class not found")
+#     if cls.get("org_id") != org_id:
+#         raise HTTPException(status_code=403, detail="Cannot add student to another org's class")
+
+#     # Check if user already exists
+#     existing = get_user_row_by_email(email)
+#     if existing:
+#         user_id = existing["id"]
+#         roles = parse_roles_field(existing.get("roles"))
+#         if "student" not in roles:
+#             roles.append("student")
+#             db_update_one("users", user_id, {"roles": json.dumps(roles)})
+#     else:
+#         # Create new user
+#         user_id = str(uuid.uuid4())
+#         hashed_pass = hash_password(password)
+#         new_student = {
+#             "id": user_id,
+#             "email": email,
+#             "full_name": full_name,
+#             "roles": json.dumps(["student"]),
+#             "org_id": org_id,
+#             "hashed_password": hashed_pass,
+#         }
+#         db_insert_one("users", new_student)
+
+#     # Add class membership if not already enrolled
+#     existing_member = db_find_one("class_memberships", class_id=class_id, user_id=user_id)
+#     if not existing_member:
+#         db_insert_one(
+#             "class_memberships",
+#             {
+#                 "id": str(uuid.uuid4()),
+#                 "class_id": class_id,
+#                 "user_id": user_id,
+#                 "role": "student",
+#             },
+#         )
+
+#     return {"message": "Student added successfully", "student_id": user_id}
+
 @app.post("/api/teachers/add-student")
-@require_any_role("class_teacher", "admin")
-def add_student(
-    class_id: str = Body(...),
-    full_name: str = Body(...),
-    email: EmailStr = Body(...),
-    password: str = Body(...),
-    current_user=Depends(get_current_user)
-):
-    """Allows class_teacher or admin to manually add a student to a specific class."""
-    org_id = current_user.get("org_id")
-    if not org_id:
-        raise HTTPException(status_code=400, detail="User not linked to any org")
+@require_any_role("class_teacher", "admin", "sub_teacher")
+def add_student(payload: AddStudentReq, current_user=Depends(get_current_user)):
+    """
+    Create or update a student and add them to the given class.
+    Accepts JSON body: { class_id, email, full_name, password }
+    """
+    class_id = payload.class_id
+    email = payload.email.strip().lower()
+    full_name = (payload.full_name or "").strip()
+    password = payload.password or secrets.token_urlsafe(8)
 
     # Validate class exists
     cls = db_find_one("classes", id=class_id)
     if not cls:
         raise HTTPException(status_code=404, detail="Class not found")
-    if cls.get("org_id") != org_id:
-        raise HTTPException(status_code=403, detail="Cannot add student to another org's class")
 
-    # Check if user already exists
-    existing = get_user_row_by_email(email)
+    # Permission checks: admin in same org OR class_teacher owning class OR sub_teacher who is teacher member
+    roles = parse_roles_field(current_user.get("roles") or [])
+    allowed = False
+    if "admin" in roles and current_user.get("org_id") == cls.get("org_id"):
+        allowed = True
+    if "class_teacher" in roles and cls.get("class_teacher_id") == current_user["id"]:
+        allowed = True
+    if "sub_teacher" in roles:
+        cm = db_find_one("class_memberships", class_id=class_id, user_id=current_user["id"])
+        if cm and cm.get("role") == "teacher":
+            allowed = True
+    if not allowed:
+        raise HTTPException(status_code=403, detail="Not allowed to add students to this class")
+
+    # Ensure email provided
+    if not email:
+        raise HTTPException(status_code=400, detail="Email required")
+
+    existing = db_find_one("users", email=email)
     if existing:
         user_id = existing["id"]
-        roles = parse_roles_field(existing.get("roles"))
-        if "student" not in roles:
-            roles.append("student")
-            db_update_one("users", user_id, {"roles": json.dumps(roles)})
+        # ensure 'student' role present
+        roles_list = parse_roles_field(existing.get("roles") or [])
+        if "student" not in roles_list:
+            roles_list.append("student")
+            db_update_one("users", user_id, {"roles": json.dumps(roles_list)})
+        # ensure org matches class org
+        if existing.get("org_id") != cls.get("org_id"):
+            db_update_one("users", user_id, {"org_id": cls.get("org_id")})
     else:
-        # Create new user
+        # create new user with hashed password
         user_id = str(uuid.uuid4())
         hashed_pass = hash_password(password)
-        new_student = {
+        new_user = {
             "id": user_id,
             "email": email,
             "full_name": full_name,
             "roles": json.dumps(["student"]),
-            "org_id": org_id,
-            "hashed_password": hashed_pass,
+            "org_id": cls.get("org_id"),
+            "hashed_password": hashed_pass
         }
-        db_insert_one("users", new_student)
+        db_insert_one("users", new_user)
 
-    # Add class membership if not already enrolled
-    existing_member = db_find_one("class_memberships", class_id=class_id, user_id=user_id)
-    if not existing_member:
-        db_insert_one(
-            "class_memberships",
-            {
-                "id": str(uuid.uuid4()),
-                "class_id": class_id,
-                "user_id": user_id,
-                "role": "student",
-            },
-        )
+    # create membership if not exists
+    existing_mem = db_find_one("class_memberships", class_id=class_id, user_id=user_id)
+    if not existing_mem:
+        db_insert_one("class_memberships", {
+            "id": str(uuid.uuid4()),
+            "class_id": class_id,
+            "user_id": user_id,
+            "role": "student"
+        })
 
-    return {"message": "Student added successfully", "student_id": user_id}
+    return {"message": "student added/updated", "user_id": user_id}
 
 # -------------------------
 # REFACTORED: ASSIGNMENTS
@@ -2503,62 +2650,59 @@ def list_assignments(class_id: str, current_user=Depends(get_current_user)):
 # -------------------------
 @app.post('/api/submissions')
 @require_any_role('student')
-def submit_assignment(file: Optional[UploadFile] = File(None), payload: Optional[SubmitReq] = Body(None), current_user=Depends(get_current_user)):
-    if payload is None and not file:
-        raise HTTPException(status_code=400, detail='No submission data')
-    
-    assignment_id = payload.assignment_id if payload else None
-    if not assignment_id:
-        raise HTTPException(status_code=400, detail='assignment_id required')
-        
-    a = db_find_one('assignments', id=assignment_id)
-    if not a:
+def submit_assignment(
+    assignment_id: str = Form(...),
+    text_content: Optional[str] = Form(None),
+    file: Optional[UploadFile] = File(None),
+    current_user=Depends(get_current_user)
+):
+    # Validate assignment
+    assignment = db_find_one('assignments', id=assignment_id)
+    if not assignment:
         raise HTTPException(status_code=404, detail='Assignment not found')
-        
-    class_id = a['class_id']
-    cm = db_find_one('class_memberships', class_id=class_id, user_id=current_user['id'])
-    if not cm:
-        raise HTTPException(status_code=403, detail='Not a member of class')
-        
-    file_path = None
-    text_content = None
-    
-    if file:
-        bucket_path = UPLOAD_DIR / "submissions" / assignment_id / current_user['id']
-        bucket_path.mkdir(parents=True, exist_ok=True)
-        
-        filename = f"{secrets.token_hex(8)}_{file.filename}"
-        local_file_path = bucket_path / filename
-        
-        try:
-            with open(local_file_path, "wb") as f:
-                f.write(file.file.read())
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f'Upload failed: {e}')
-        
-        file_path = os.path.join("uploads", "submissions", assignment_id, current_user['id'], filename)
 
-    if payload and payload.text_content:
-        text_content = payload.text_content
-        
-    existing = db_find_one('submissions', assignment_id=assignment_id, student_id=current_user['id'])
-    
+    class_id = assignment['class_id']
+    cm = db_find_one('class_memberships', class_id=class_id, user_id=current_user["id"])
+    if not cm:
+        raise HTTPException(status_code=403, detail="Not in class")
+
+    file_path = None
+    if file:
+        bucket_path = UPLOAD_DIR / "submissions" / assignment_id / current_user["id"]
+        bucket_path.mkdir(parents=True, exist_ok=True)
+
+        filename = f"{secrets.token_hex(8)}_{file.filename}"
+        full_path = bucket_path / filename
+
+        with open(full_path, "wb") as f:
+            f.write(file.file.read())
+
+        file_path = f"uploads/submissions/{assignment_id}/{current_user['id']}/{filename}"
+
+    # Check if exists
+    existing = db_find_one("submissions", assignment_id=assignment_id, student_id=current_user["id"])
+
     if existing:
-        updates = {'text_content': text_content, 'file_path': file_path, 'submitted_at': datetime.utcnow()}
-        db_update_one('submissions', existing['id'], updates)
-        return {'message':'updated submission'}
-    
-    new_submission = {
-        'id': str(uuid.uuid4()),
-        'assignment_id': assignment_id, 
-        'student_id': current_user['id'], 
-        'text_content': text_content, 
-        'file_path': file_path,
-        'submitted_at': datetime.utcnow()
+        db_update_one("submissions", existing["id"], {
+            "text_content": text_content,
+            "file_path": file_path,
+            "submitted_at": datetime.utcnow()
+        })
+        return {"message": "updated submission"}
+
+    new_sub = {
+        "id": str(uuid.uuid4()),
+        "assignment_id": assignment_id,
+        "student_id": current_user["id"],
+        "text_content": text_content,
+        "file_path": file_path,
+        "submitted_at": datetime.utcnow()
     }
-    
-    db_insert_one('submissions', new_submission)
-    return new_submission
+
+    db_insert_one("submissions", new_sub)
+    return {"message": "submitted", "id": new_sub["id"]}
+
+
 
 @app.get('/api/assignments/{assignment_id}/submissions')
 @require_any_role('sub_teacher','class_teacher')
@@ -2643,6 +2787,55 @@ def upload_final_marks(req: FinalMarkReq, current_user=Depends(get_current_user)
     
     db_insert_one('final_marks', body)
     return {'message':'uploaded'}
+
+# @app.get("/api/classes/{class_id}/grades")
+# @require_any_role("class_teacher", "sub_teacher", "admin")
+# def get_class_grades(class_id: str, current_user=Depends(get_current_user)):
+#     # Check user belongs to that class
+#     m = db_find_one("class_memberships", class_id=class_id, user_id=current_user["id"])
+#     if not m:
+#         raise HTTPException(status_code=403, detail="Not a member of this class")
+
+#     # Load all grades
+#     all_marks = load_db("final_marks")
+
+#     # Filter only this class' grades
+#     class_grades = [g for g in all_marks if g.get("class_id") == class_id]
+
+#     return class_grades
+@app.get("/api/classes/{class_id}/grades")
+@require_any_role("admin", "class_teacher", "sub_teacher", "student")
+def get_class_grades(class_id: str, current_user=Depends(get_current_user)):
+
+    # Check if user is part of the class
+    member = db_find_one("class_memberships", class_id=class_id, user_id=current_user["id"])
+    if not member:
+        raise HTTPException(status_code=403, detail="Not part of this class")
+
+    roles = parse_roles_field(current_user.get("roles", []))
+    org_id = current_user.get("org_id")
+
+    # ADMIN → sees all marks in org for this class
+    if "admin" in roles:
+        return db_find_many("final_marks", class_id=class_id, org_id=org_id) or []
+
+    # CLASS TEACHER → sees grades only for their classes
+    if "class_teacher" in roles:
+        cls = db_find_one("classes", id=class_id)
+        if cls and cls.get("class_teacher_id") == current_user["id"]:
+            return db_find_many("final_marks", class_id=class_id) or []
+        raise HTTPException(status_code=403, detail="Not your class")
+
+    # SUB TEACHER → can view all marks in class
+    if "sub_teacher" in roles:
+        return db_find_many("final_marks", class_id=class_id) or []
+
+    # STUDENT → only their own grades
+    if "student" in roles:
+        return db_find_many("final_marks", class_id=class_id, student_id=current_user["id"]) or []
+
+    raise HTTPException(status_code=403, detail="Not allowed")
+
 
 @app.get('/api/orgs/{org_id}/grades')
 @require_any_role('class_teacher','admin','sub_teacher')

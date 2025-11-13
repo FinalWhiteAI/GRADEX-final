@@ -37,6 +37,8 @@ import Departments from "./pages/Departments";
 import ImportPage from "./pages/Import";
 import Classes from "./pages/ClassPage";
 import ClassPage from "./pages/ClassPage";
+import SubmissionsPage from  './pages/Submissions.jsx';
+
 
 export default function App() {
   return (
@@ -45,7 +47,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
-
+<Route
+  path="/assignment/:id/submissions"
+  element={
+    <ProtectedRoute allowed={['sub_teacher','student']}>
+      <SubmissionsPage />
+    </ProtectedRoute>
+  }
+/>
           {/* Dashboards */}
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/owner" element={<ProtectedRoute allowed={['owner']}><OwnerDashboard /></ProtectedRoute>} />

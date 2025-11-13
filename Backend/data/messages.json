@@ -16,5 +16,14 @@
     "content": "jj\n",
     "is_public": true,
     "sent_at": "2025-11-11 17:14:26.549623"
+  },
+  {
+    "id": "578eab23-688d-4de7-8416-03ab27c60510",
+    "class_id": "55dc04b5-f8dc-45ed-a705-0d205d393686",
+    "sender_id": "1210083c-085a-4cf4-b499-4c269b134595",
+    "receiver_id": null,
+    "content": "hi",
+    "is_public": true,
+    "sent_at": "2025-11-13 15:50:48.992836"
   }
 ]
