@@ -178,5 +178,149 @@
     "class_id": "6b385a7b-c235-471f-adc5-297684fd9598",
     "user_id": "3adb7bf8-8cf7-453d-8aa6-ef0daf726f64",
     "role": "student"
+  },
+  {
+    "id": "a8db06cb-962b-4250-8442-801e99456fd1",
+    "class_id": "78c9aa85-8182-4b3c-9a59-f7496cad73d4",
+    "user_id": "2f7b0f12-1ade-4f5c-8a4f-3503ecee4780",
+    "role": "teacher"
+  },
+  {
+    "id": "1ef3add9-4186-4306-9f05-967d545807fe",
+    "class_id": "78c9aa85-8182-4b3c-9a59-f7496cad73d4",
+    "user_id": "3a166a71-955a-4406-b876-a72ccce1dea4",
+    "role": "student"
+  },
+  {
+    "id": "0ac06f3e-e610-44fb-85e7-977bb5533e3e",
+    "class_id": "459aa389-4c2b-4984-a06b-ec44157208be",
+    "user_id": "75e8dae9-cf31-437b-979e-83bc523e00ff",
+    "role": "teacher"
+  },
+  {
+    "id": "36149f3d-01a3-4cdd-9ea1-1ab54d82fd74",
+    "class_id": "459aa389-4c2b-4984-a06b-ec44157208be",
+    "user_id": "aca78a53-8a53-408a-8177-4e0d1feaabd8",
+    "role": "student"
+  },
+  {
+    "id": "1186dd59-b0ff-4008-a3d4-792ee2c56528",
+    "class_id": "94cda747-1772-450a-a970-7dc0cadd60c2",
+    "user_id": "75e8dae9-cf31-437b-979e-83bc523e00ff",
+    "role": "teacher"
+  },
+  {
+    "id": "53deab26-7342-4419-81e1-902069d210f8",
+    "class_id": "94cda747-1772-450a-a970-7dc0cadd60c2",
+    "user_id": "6d8c45f8-7c5c-43ac-b9f0-2772f04801d7",
+    "role": "student"
+  },
+  {
+    "id": "46d8882d-0ed1-4288-91eb-2d8b45b17cb5",
+    "class_id": "725690e9-e48c-4831-abfa-28fae229fb3c",
+    "user_id": "79751667-ad05-4be4-8442-c439faef0e69",
+    "role": "teacher"
+  },
+  {
+    "id": "7429176c-ff3f-4386-a11a-4fc08048fdf2",
+    "class_id": "c27292a5-ae2d-4b62-af71-556e61f9bac3",
+    "user_id": "79751667-ad05-4be4-8442-c439faef0e69",
+    "role": "teacher"
+  },
+  {
+    "id": "0d7e0238-682d-4e10-a177-c2f750810612",
+    "class_id": "b349df54-47b3-40f1-86f4-340a429492d1",
+    "user_id": "7c6c815a-babe-466c-9185-44d9d0ac9960",
+    "role": "teacher"
+  },
+  {
+    "id": "5fc7b2e5-8b95-4c56-8af8-debaa859a065",
+    "class_id": "b349df54-47b3-40f1-86f4-340a429492d1",
+    "user_id": "e7f4ebad-42ab-4def-bea8-a21492d5565d",
+    "role": "student"
+  },
+  {
+    "id": "82d0b301-72ef-4a80-a661-ba6206b3327f",
+    "class_id": "66af8efd-7b39-4c20-9454-d713725c1802",
+    "user_id": "7c6c815a-babe-466c-9185-44d9d0ac9960",
+    "role": "teacher"
+  },
+  {
+    "id": "cc426e33-8147-4961-a168-785c751a0cfd",
+    "class_id": "24711ebf-d04d-4dd3-878f-e1c7fdc68b64",
+    "user_id": "7c6c815a-babe-466c-9185-44d9d0ac9960",
+    "role": "teacher"
+  },
+  {
+    "id": "b4491a53-16ec-427c-9782-1c50dfdda2cc",
+    "class_id": "24711ebf-d04d-4dd3-878f-e1c7fdc68b64",
+    "user_id": "055fec52-328c-44ec-b382-5b4a80bc3f47",
+    "role": "student"
+  },
+  {
+    "id": "960005ac-7ff9-40f3-b591-25413f655f26",
+    "class_id": "c5ce15fd-ae13-43f6-b1af-6ad6ca1984b4",
+    "user_id": "fb5fe06d-4900-47ee-8aa8-912143927021",
+    "role": "teacher"
+  },
+  {
+    "id": "159d8ec5-2046-4316-a6d9-5e1967543a1a",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "9ea225a6-5a25-4ce2-888c-937a7b4d5563",
+    "role": "teacher"
+  },
+  {
+    "id": "5db5ce72-b24d-4dd7-9c5f-ad10cc5e56ee",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "734efeb8-6a3c-44f3-b949-490602e986e7",
+    "role": "student"
+  },
+  {
+    "id": "5582398e-1171-4fe3-9d56-665b911eac4a",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "aeb8640b-4321-4998-9303-de419f06ea2a",
+    "role": "student"
+  },
+  {
+    "id": "e2e9f54d-37c3-4ae6-b56d-8fd80dfbb07b",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "347dc756-f1aa-465e-988f-5df3b70718f6",
+    "role": "student"
+  },
+  {
+    "id": "d7fed8dd-a7b7-4d36-8818-b18a47ed2065",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "74b5a5c2-77a0-474b-869e-782a70c67bc8",
+    "role": "student"
+  },
+  {
+    "id": "d7a80a05-8baa-4f43-b957-a607c1fec06e",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "89b12229-a430-4181-8e60-d2b1d151af2e",
+    "role": "student"
+  },
+  {
+    "id": "b19e718d-5290-461d-bf52-eea220b36a47",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "19652012-c27d-47c9-8510-ae8d6d2561fc",
+    "role": "student"
+  },
+  {
+    "id": "e95899ea-c9a1-4555-8e46-1699dd561f5f",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "user_id": "a83a8f30-d35e-4e3b-a5b4-7e6b8b4fd36c",
+    "role": "student"
+  },
+  {
+    "id": "65a7aff8-ae0e-4eb4-8653-69897f84d116",
+    "class_id": "0297558c-8502-4780-bba1-d3a019ed8e15",
+    "user_id": "c74b9c37-1c3a-4fd7-8652-d841a1123b38",
+    "role": "teacher"
+  },
+  {
+    "id": "2d7811f4-2fb3-4100-b21c-f6bd36b9b6ef",
+    "class_id": "0297558c-8502-4780-bba1-d3a019ed8e15",
+    "user_id": "c6bf9733-d5e3-4a71-81e2-02e05debce97",
+    "role": "student"
   }
 ]

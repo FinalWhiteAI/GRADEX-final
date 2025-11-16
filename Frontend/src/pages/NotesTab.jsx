@@ -12,26 +12,31 @@ export default function NotesTab({ classId }) {
     const res = await api.get(`/api/classes/${classId}/notes`);
     setNotes(res.data || []);
   };
+const uploadNote = async () => {
+  if (!file || !title) return alert("Fill all fields");
 
-  const uploadNote = async () => {
-    if (!file || !title) return alert("Fill all fields");
-    try {
-      await api.post("/api/notes", {
-        class_id: classId,
-        title,
-        file_path: `notes/${file.name}`,
-      });
-      fetchNotes();
-      setTitle("");
-      setFile(null);
-    } catch {
-      alert("Only teachers can upload notes");
-    }
-  };
+  try {
+    const fd = new FormData();
+    fd.append("class_id", classId);
+    fd.append("title", title);
+    fd.append("file", file);
 
-  useEffect(() => {
+    await api.post("/api/notes/upload", fd, {
+      // headers: { "Content-Type": "multipart/form-data" },
+    });
+
     fetchNotes();
-  }, []);
+    setTitle("");
+    setFile(null);
+  } catch (err) {
+    console.error(err);
+    alert("Only teachers can upload notes");
+  }
+};
+
+useEffect(() => {
+  if (classId) fetchNotes();
+}, [classId]);
 
   const canUpload = user?.roles?.includes("sub_teacher") || user?.roles?.includes("class_teacher");
 
@@ -66,7 +71,14 @@ export default function NotesTab({ classId }) {
         {notes.map((n) => (
           <li key={n.id} className="bg-white dark:bg-gray-800 p-3 rounded-md shadow">
             <h3 className="font-medium">{n.title}</h3>
-            <p className="text-sm text-gray-500">{n.file_path}</p>
+            <a
+        href={n.file_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-blue-500 underline"
+      >
+        Open File
+      </a>
           </li>
         ))}
       </ul>

@@ -82,7 +82,7 @@ export default function ImportPage() {
           <p className="text-sm mb-2">Map your Excel columns:</p>
 
           {["name", "email", "role", "department", "class", "section", "password"].map((key) => (
-            <div key={key} className="flex gap-2 mb-2">
+            <div key={key} className="flex gap-2 mb-2 text-blue-500">
               <span className="w-32 font-medium capitalize">{key}</span>
               <select
                 onChange={(e) =>

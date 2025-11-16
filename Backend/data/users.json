@@ -86,5 +86,309 @@
     "roles": "[\"student\"]",
     "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
     "hashed_password": "$2b$12$oONc4oTqbesQbFvFc4/uDeDLPSpuoGWgpCxX0761r9r/4WrMi1cxu"
+  },
+  {
+    "id": "2407adea-6deb-4fee-8805-9476b910039c",
+    "email": "pu@gmail.com",
+    "full_name": "pu",
+    "roles": "[\"hod\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$dEK1XhBVKnIuJdLxltRSHut.bKgGbRTDOi2qgVNs4RwTwQL1OC78C"
+  },
+  {
+    "id": "401185d0-3622-4811-a8e9-a8e883002d0f",
+    "email": "pus@gmail.com",
+    "full_name": "pu",
+    "roles": "[\"hod\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$JlSkrRzVmmMiIC6cnjFWQuqsChbkXB/HOWmGNcvQbrpG2m347pWtu"
+  },
+  {
+    "id": "85164692-1277-4120-a9de-8b35e3a4a8a1",
+    "email": "poo@gmail.com",
+    "full_name": "poorn",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$2uTnJdagfXin4CeX1rWTVONGQ4kQuMsraypJnyvMDpPWHJ4VvYn2S"
+  },
+  {
+    "id": "2f7b0f12-1ade-4f5c-8a4f-3503ecee4780",
+    "email": "chai@gmail.com",
+    "full_name": "chai",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$lT9Un2ANL5rS2jrCZ/ROK.270J6pn.QsbMynMQI.RcQXOC9uV/qLm"
+  },
+  {
+    "id": "3a166a71-955a-4406-b876-a72ccce1dea4",
+    "email": "ash@gmail.com",
+    "full_name": "Ash",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$WjqedKU.r2fREDIiLeiBMOpYhp8yMvKIGar9vyScMLpy5Ok61/Uai"
+  },
+  {
+    "id": "716dce03-1917-4b56-a210-dc8b7ed54e90",
+    "email": "cha@gmail.com",
+    "full_name": "chh",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$epHSoQZcfLJfM5xAYzRvYOU2BNNFsIJ0WqBGJptBBjh3Gxi4hNFky"
+  },
+  {
+    "id": "75e8dae9-cf31-437b-979e-83bc523e00ff",
+    "email": "kk@gmail.com",
+    "full_name": "kk",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$9XGhhgbxXSJpVUfFvL2pAOVmdlbov2W0tQD9BtZleC.sU.QJ7zN22"
+  },
+  {
+    "id": "aca78a53-8a53-408a-8177-4e0d1feaabd8",
+    "email": "aa@gmail.com",
+    "full_name": "aa",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$sbXcFZXtMlqSafo6GpWF1u6tWzKVi6WpGZmNff.BqbKCvrEa/P63a"
+  },
+  {
+    "id": "6d8c45f8-7c5c-43ac-b9f0-2772f04801d7",
+    "email": "kr@gmail.com",
+    "full_name": "kr",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$jCNu0CiqyU2VapmpDtPsb.of6Uj/juXjIVt708m1aK3HmUoJEwwAS"
+  },
+  {
+    "id": "6f0dc61c-9ead-438b-a65f-6a4b7d1a761e",
+    "email": "pra@gmail.com",
+    "full_name": "pra",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$xFQf2PHJSxjV3wpIfljVN.ittzO5yhI55JdTV5yh7dVsdYob8xixG"
+  },
+  {
+    "id": "79751667-ad05-4be4-8442-c439faef0e69",
+    "email": "mu@gmail.com",
+    "full_name": "mu",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$.l2iu7ToQhTU8kDnVgH63.sSep9oEq8OBFiW4Ku6acz8JBSssqVKy"
+  },
+  {
+    "id": "b403cce3-a2f2-4d3e-a0cf-067b1d2eb6b2",
+    "email": "j@gmail.com",
+    "full_name": "j",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$8UqDxZcGtrAOx7d/U3ZJSuUE1r9gGammQ/V6V/IrjzoyBMmtRJ5By"
+  },
+  {
+    "id": "4e6614d3-73bf-4be6-812c-0abc6cebe018",
+    "email": "poorn@gmail.com",
+    "full_name": "poorn",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$11qi/NW.Ju8Nqh.5BDqrJePncprZAd1/RWwKv1KnQxhgQCTI0XmsG"
+  },
+  {
+    "id": "7c6c815a-babe-466c-9185-44d9d0ac9960",
+    "email": "pk@gmail.com",
+    "full_name": "pk",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$d3VOlJSZIAEecio895y4MOx3MpPmiDA/UraLoIvdn1c1zQm.qf3y6"
+  },
+  {
+    "id": "e7f4ebad-42ab-4def-bea8-a21492d5565d",
+    "email": "ah@hmail.com",
+    "full_name": "aaha",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$m7qlpREiuu4qOeXqN5aiBeaXydj0pplKr90GHHLSYsjWggQLJqIYG"
+  },
+  {
+    "id": "055fec52-328c-44ec-b382-5b4a80bc3f47",
+    "email": "ashish@gmail.com",
+    "full_name": "ashish",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$2GFPsBNK7Du53N3gDnKjfexgB8O9K3hMTupMEMAM4A7wJAzs/3SQ6"
+  },
+  {
+    "id": "fb5fe06d-4900-47ee-8aa8-912143927021",
+    "email": "mo@gmail.com",
+    "full_name": "monica",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$zzAQya.IRKtwVn6OMHpmQ.PTH4oCKoej.PqNCXd24ihTk1hDAv3OW"
+  },
+  {
+    "id": "c3dc3a49-f27a-4df2-9fb2-f71769470b4c",
+    "email": "pushpa@gmail.com",
+    "full_name": "Pushpa",
+    "roles": "[\"hod\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$8tk6twnFmmksTjo3Iv.WAOufJYHgj9LL9aFjr7SFKy1CjKM78jTHO"
+  },
+  {
+    "id": "0e42e9f8-19ad-483e-8603-b526c81db283",
+    "email": "shi@gmail.com",
+    "full_name": "Shiva",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$glyEvH9ZUID6WKVvfWaCYu9U3i11iEFrEAxxl09Xl/5pp0XaPBZHG"
+  },
+  {
+    "id": "9ea225a6-5a25-4ce2-888c-937a7b4d5563",
+    "email": "har@gmail.com",
+    "full_name": "har",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$z1swXeyfRN4NtDhCVMQ5A.M7pTTgmfJnx6oas/9OPg6tqRLq.XDsW"
+  },
+  {
+    "id": "734efeb8-6a3c-44f3-b949-490602e986e7",
+    "email": "ani@gmail.com",
+    "full_name": "ani",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$24OU3ApwoplwPKQL9WSGF.wp/mbVXfzvUyBo20e6ADx2E6.dsgdQu"
+  },
+  {
+    "id": "aeb8640b-4321-4998-9303-de419f06ea2a",
+    "email": "ss@gmail.com",
+    "full_name": "ashisjsj",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$PdR4fh6aZQgg9yHOK83IyeEZc0ZAFtPynx5JUtHwYzme3jGw/SqD2"
+  },
+  {
+    "id": "cc3c8f21-324d-46a0-a26b-d03e65de4f3f",
+    "email": "shi@gmail.com",
+    "full_name": "shiva",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$Il6h1KJmH8VRS5Lto/Sc3uVvjhx9B8JFWZqgP9.TO7rhtmLeipkQq"
+  },
+  {
+    "id": "f0d5a21b-d4d0-437a-8191-2618426ca03b",
+    "email": "hod_cse@example.com",
+    "full_name": "John HOD",
+    "roles": "[\"hod\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$7.99z2NggMW2YsSrSypER.tYI6F.EahSV.8Uiaq/5qtCoXHGEf2Au"
+  },
+  {
+    "id": "487ecd43-da8e-43cc-97d6-443c43f952aa",
+    "email": "hod_aiml@example.com",
+    "full_name": "Alex HOD",
+    "roles": "[\"hod\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$az/Un6SOV0CWbj5b2yfrgupLxfyS89AL9cJoKJztM92JV0oEl2iPu"
+  },
+  {
+    "id": "f1f19266-6593-4bcd-a328-90156b02d90a",
+    "email": "alice_ct_cse@example.com",
+    "full_name": "Alice CT",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$/ntdRsz3sWKMAIIBUclq4e0zDkV1g7/vFdrf/aU2OQTYFaOaNSuC."
+  },
+  {
+    "id": "3a8e6e47-8acb-4230-8f5e-5b532e50e3af",
+    "email": "bob_ct_cse@example.com",
+    "full_name": "Bob CT",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$cQzsPRnmmnU6OWdsnHcBJOSmJPyBQxnlEpffTWvOG4OHYuLkB9Qv2"
+  },
+  {
+    "id": "8b5bd1de-22a6-40a8-80c9-f626deaad270",
+    "email": "clara_ct_aiml@example.com",
+    "full_name": "Clara CT",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$Q/JbZzo7bNZSnYmIeWOUGu0ndN/OhiQriEOCulDTDIH.Vbx1LvQZC"
+  },
+  {
+    "id": "6d8aea3f-3a24-42ad-8bad-3321599cba1b",
+    "email": "ravi_sub_5a@example.com",
+    "full_name": "Ravi Sub",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$YYUD7ffn1uUxt5Or9LfeJ.ntPD6KDXFcHZx1B/BWWNs9v5S.LfeOy"
+  },
+  {
+    "id": "74de4d99-85bc-4648-ae6e-04052f23bdca",
+    "email": "meena_sub_6a@example.com",
+    "full_name": "Meena Sub",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$2ZElsR2/oHKdvJAKGF0M/eZUxcHMdLweSrG15k/ZwLlrv/Je2zCcS"
+  },
+  {
+    "id": "4a38c51e-8ca6-457a-b5a6-47d84ef339e5",
+    "email": "arun_5a@example.com",
+    "full_name": "Arun",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$CypkRKPLFd5s4tEyWXrPMOxI1zyjmF/OUeKhb9J83Y6l2pBveMNdi"
+  },
+  {
+    "id": "1326914e-5159-46a8-b5a0-998dbe1e785b",
+    "email": "divya_5a@example.com",
+    "full_name": "Divya",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$cAyIBFqu7AAWeRutzGpTGuXy1Hmw8m2E.TJwTwzwY/g8FeEd2z21e"
+  },
+  {
+    "id": "a5c871f0-c89d-4cf6-9f22-7ceedd9b5542",
+    "email": "kiran_6a@example.com",
+    "full_name": "Kiran",
+    "roles": "[\"student\"]",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "hashed_password": "$2b$12$LRtMahgnydKYvGLCWNcOTetijFpPfueWnEQ0mVZpU2QOZa.kSZwk6"
+  },
+  {
+    "id": "d07ba691-0169-48a5-bbf9-62d927cc7e8d",
+    "email": "prin@gmail.com",
+    "full_name": "principle",
+    "roles": "[\"admin\"]",
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "hashed_password": "$2b$12$GmCFY6MiKpk.A4w7bR9NAOGUL/qeDyFsDULh8APfhF.vioPlAnkRu"
+  },
+  {
+    "id": "f46c0b14-a6a3-4b07-8877-44b7c09e1bc3",
+    "email": "rob@gmail.com",
+    "full_name": "ROb",
+    "roles": "[\"hod\"]",
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "hashed_password": "$2b$12$RWjNk7tt4MWd5xpCPE9e8.LgC/FsercOBk.a3wEybj7j7eVVdmc5y"
+  },
+  {
+    "id": "17814f37-8549-47fb-998e-b12e633e44e0",
+    "email": "ad@gmail.com",
+    "full_name": "p",
+    "roles": "[\"class_teacher\"]",
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "hashed_password": "$2b$12$sr59t1vFCfm5s3cPxoMRfOCBaF4ypo4ikFBpr.KHifHIR/XDBq8ry"
+  },
+  {
+    "id": "c74b9c37-1c3a-4fd7-8652-d841a1123b38",
+    "email": "db@gmail.com",
+    "full_name": "db",
+    "roles": "[\"sub_teacher\"]",
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "hashed_password": "$2b$12$5PwFQrqQpMsCGz7qYnsLUOhnstpq.M4sGxPAkZtotwMh5rdirX/Nq"
+  },
+  {
+    "id": "c6bf9733-d5e3-4a71-81e2-02e05debce97",
+    "email": "kaa@gmail.com",
+    "full_name": "kar",
+    "roles": "[\"student\"]",
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "hashed_password": "$2b$12$53/wCVaAZTSF8ZbaIroV6eVlTcJIHoTWeDLSVI1QBrYQT2tBkpUum"
   }
 ]

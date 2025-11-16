@@ -1,0 +1,20 @@
+[
+  {
+    "id": "5022a604-140e-409c-9481-461d4d4f3545",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "name": "cse",
+    "hod_id": "2407adea-6deb-4fee-8805-9476b910039c"
+  },
+  {
+    "id": "6aaf1f80-6e5b-4a9f-81b6-0b82bee3c2ef",
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "name": "aiml",
+    "hod_id": null
+  },
+  {
+    "id": "b2d1a15d-178f-44b5-898b-363ba4666285",
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "name": "mech",
+    "hod_id": null
+  }
+]

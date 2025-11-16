@@ -15,7 +15,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL,
+  baseURL:"https://k5flk5h4-8000.inc1.devtunnels.ms",
 });
 
 api.interceptors.request.use((config) => {

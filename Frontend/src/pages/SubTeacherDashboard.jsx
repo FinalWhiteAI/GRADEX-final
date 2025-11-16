@@ -69,9 +69,9 @@ export default function SubTeacherDashboard() {
             className="bg-white dark:bg-gray-800 p-4 rounded-md shadow flex flex-col justify-between"
           >
             <div>
-              <h2 className="font-medium">{cls.title}</h2>
+              <h2 className="font-medium">Title: {cls.title}</h2>
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                {cls.description}
+               { cls.description?<>Description: {cls.description}</>:<></>}
               </p>
               <p className="text-xs mt-1 text-gray-400">Code: {cls.class_code}</p>
             </div>

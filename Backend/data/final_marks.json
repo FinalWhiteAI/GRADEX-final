@@ -68,5 +68,75 @@
     "marks": 100.0,
     "id": "e0d8855b-aecd-4658-ba29-5dc5eb872bcd",
     "uploaded_by": "1210083c-085a-4cf4-b499-4c269b134595"
+  },
+  {
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "class_id": "24711ebf-d04d-4dd3-878f-e1c7fdc68b64",
+    "student_id": "055fec52-328c-44ec-b382-5b4a80bc3f47",
+    "subject_name": "manths",
+    "unit_name": "1",
+    "marks": 100.0,
+    "id": "95fbf399-b86a-4846-86af-447ca9987972",
+    "uploaded_by": "7c6c815a-babe-466c-9185-44d9d0ac9960"
+  },
+  {
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "student_id": "734efeb8-6a3c-44f3-b949-490602e986e7",
+    "subject_name": "s",
+    "unit_name": "1",
+    "marks": 90.0,
+    "id": "e4f5c29a-3549-4710-a2c1-11868befd860",
+    "uploaded_by": "9ea225a6-5a25-4ce2-888c-937a7b4d5563"
+  },
+  {
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "student_id": "734efeb8-6a3c-44f3-b949-490602e986e7",
+    "subject_name": "os",
+    "unit_name": "2",
+    "marks": 11.0,
+    "id": "8b05f9d2-74a8-4538-8d39-9c8b4e1bdd5c",
+    "uploaded_by": "9ea225a6-5a25-4ce2-888c-937a7b4d5563"
+  },
+  {
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "student_id": "aeb8640b-4321-4998-9303-de419f06ea2a",
+    "subject_name": "os",
+    "unit_name": "1",
+    "marks": 20.0,
+    "id": "688016de-a28b-4c2b-88f7-67292981f9e5",
+    "uploaded_by": "9ea225a6-5a25-4ce2-888c-937a7b4d5563"
+  },
+  {
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "student_id": "734efeb8-6a3c-44f3-b949-490602e986e7",
+    "subject_name": "os",
+    "unit_name": "3",
+    "marks": 1.0,
+    "id": "ed385340-f28e-41b2-81de-bdf12cc0422d",
+    "uploaded_by": "9ea225a6-5a25-4ce2-888c-937a7b4d5563"
+  },
+  {
+    "org_id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "student_id": "aeb8640b-4321-4998-9303-de419f06ea2a",
+    "subject_name": "os",
+    "unit_name": "5",
+    "marks": 1.0,
+    "id": "e2c911da-4e9d-4dbe-9687-733203204833",
+    "uploaded_by": "9ea225a6-5a25-4ce2-888c-937a7b4d5563"
+  },
+  {
+    "org_id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "class_id": "0297558c-8502-4780-bba1-d3a019ed8e15",
+    "student_id": "c6bf9733-d5e3-4a71-81e2-02e05debce97",
+    "subject_name": "DBMS",
+    "unit_name": "1",
+    "marks": 100.0,
+    "id": "b1ccd8ae-4302-4040-9578-2460b02ec2c3",
+    "uploaded_by": "c74b9c37-1c3a-4fd7-8652-d841a1123b38"
   }
 ]

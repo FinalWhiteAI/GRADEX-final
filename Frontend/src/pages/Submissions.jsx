@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 export default function Submissions() {
   const { id } = useParams(); // assignment_id
   const [subs, setSubs] = useState([]);
+  const [marksInput, setMarksInput] = useState({});
 
   const fetchSubs = async () => {
     try {
@@ -17,11 +18,15 @@ export default function Submissions() {
     }
   };
 
-  const grade = async (subId, marks) => {
+  const grade = async (subId) => {
+    const marks = marksInput[subId];
+    if (!marks) return alert("Enter marks");
+
     try {
-      await api.post(`/api/submissions/${subId}/grade`, { marks }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      });
+     await api.post(`/api/submissions/${subId}/grade`, { grade: Number(marks) }, {
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+});
+
       fetchSubs();
       alert("Graded!");
     } catch (err) {
@@ -34,45 +39,69 @@ export default function Submissions() {
   }, []);
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-semibold mb-4">Student Submissions</h1>
+    <div className="w-full min-h-screen bg-gray-900 text-gray-200 p-6">
 
-      {subs.length === 0 && <p>No submissions yet.</p>}
+      {/* Page Title */}
+      <h1 className="text-2xl font-semibold mb-6">📚 Student Submissions</h1>
 
-      {subs.map((s) => (
-        <div
-          key={s.id}
-          className="bg-white dark:bg-gray-100 p-4 rounded-md shadow mb-4"
-        >
-          <p><strong>{s.student_name}</strong> ({s.student_email})</p>
-          <p className="mt-2">{s.text_content || "No text provided"}</p>
+      {subs.length === 0 && (
+        <p className="text-gray-400">No submissions yet.</p>
+      )}
 
-          {s.file_path && (
-            <a
-              href={s.file_path}
-              target="_blank"
-              className="text-blue-500 underline mt-2 block"
-            >
-              Download File
-            </a>
-          )}
+      {/* Submissions list */}
+      <div className="space-y-5">
+        {subs.map((s) => (
+          <div
+            key={s.id}
+            className="bg-gray-800 border border-gray-700 p-5 rounded-xl shadow-lg"
+          >
+            {/* Student Name + Email */}
+            <p className="text-lg font-semibold">
+              {s.student_name}{" "}
+              <span className="text-sm text-gray-400">
+                ({s.student_email})
+              </span>
+            </p>
 
-          <div className="mt-3 flex gap-2">
-            <input
-              placeholder="Marks"
-              type="number"
-              onChange={(e) => (s.tempMarks = e.target.value)}
-              className="border px-2 py-1 rounded"
-            />
-            <button
-              onClick={() => grade(s.id, s.tempMarks)}
-              className="bg-green-600 text-white px-3 py-1 rounded-md"
-            >
-              Grade
-            </button>
+            {/* Text content */}
+            <p className="mt-3 text-gray-300">
+              {s.text_content || "No text provided"}
+            </p>
+
+            {/* File link */}
+            {s.file_path && (
+              <a
+                href={s.file_path}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 underline mt-3 inline-block hover:text-blue-300"
+              >
+               Open File
+              </a>
+            )}
+
+            {/* Grade Section */}
+            <div className="mt-5 flex gap-3 items-center">
+              <input
+                type="number"
+                placeholder="Marks"
+                value={marksInput[s.id] || ""}
+                onChange={(e) =>
+                  setMarksInput({ ...marksInput, [s.id]: e.target.value })
+                }
+                className="w-32 px-3 py-2 rounded-lg bg-gray-700 text-gray-100 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+
+              <button
+                onClick={() => grade(s.id)}
+                className="px-4 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white font-medium transition"
+              >
+                Grade
+              </button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 }

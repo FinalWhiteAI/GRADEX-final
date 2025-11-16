@@ -21,7 +21,7 @@ export default function Sidebar() {
   if (roles.includes("admin")) {
     links.push({ to: "/admin/dashboard", label: "Admin Dashboard" });
     if (orgType !== "school") links.push({ to: "/departments", label: "Departments" });
-    links.push({ to: "/import", label: "Bulk Upload" });
+    links.push({ to: "/import", label: "Import Users " });
   }
 
   if (roles.includes("class_teacher"))
@@ -32,6 +32,8 @@ export default function Sidebar() {
 
   if (roles.includes("student"))
     links.push({ to: "/student/dashboard", label: "Student Dashboard" });
+  if (roles.includes("hod"))
+  links.push({ to: "/hod/dashboard", label: "HOD Dashboard" });
 
   return (
     <aside className="w-60 min-h-screen bg-gray-200 dark:bg-gray-800 text-black dark:text-white p-4">

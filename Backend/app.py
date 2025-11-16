@@ -2073,6 +2073,24 @@ app.openapi = custom_openapi
 # REFACTORED: AUTH
 # -------------------------
 
+def get_roles(user_id):
+    roles = db_find_many("role_assignments", user_id=user_id)
+    return roles or []
+
+def has_role(user_id, role):
+    return db_find_one("role_assignments", user_id=user_id, role=role) is not None
+
+def assign_role(user_id, role, org_id=None, dept_id=None, class_id=None):
+    db_insert_one("role_assignments", {
+        "id": str(uuid.uuid4()),
+        "user_id": user_id,
+        "role": role,
+        "org_id": org_id,
+        "dept_id": dept_id,
+        "class_id": class_id
+    })
+
+
 @app.post("/api/users/create")
 @require_any_role("admin", "class_teacher", "sub_teacher")
 def create_user(payload: AddUserReq, current_user=Depends(get_current_user)):
@@ -2109,6 +2127,181 @@ def create_user(payload: AddUserReq, current_user=Depends(get_current_user)):
         "roles": roles
     }
 
+def require_role(*allowed_roles):
+    def wrapper(fn):
+        def inner(*args, current_user=Depends(get_current_user), **kwargs):
+            user_roles = get_roles(current_user["id"])
+            roles_only = [r["role"] for r in user_roles]
+
+            if not any(role in roles_only for role in allowed_roles):
+                raise HTTPException(status_code=403, detail="Role not allowed")
+
+            return fn(*args, current_user=current_user, **kwargs)
+        return inner
+    return wrapper
+
+@app.post("/api/dept/{dept_id}/assign-hod")
+@require_role("admin")
+def assign_hod(dept_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+    user = get_user_row_by_email(payload.email)
+    if not user:
+        raise HTTPException(404, "User not found")
+
+    assign_role(user["id"], "hod", org_id=current_user["org_id"], dept_id=dept_id)
+    return {"message": "HOD Assigned"}
+@app.post("/api/admin/assign-hod")
+@require_any_role("admin")
+def assign_hod(req: dict, current_user=Depends(get_current_user)):
+    dept_id = req.get("dept_id")
+    hod_id = req.get("hod_id")
+
+    dept = db_find_one("departments", id=dept_id)
+    if not dept:
+        raise HTTPException(status_code=404, detail="Department not exists")
+
+    # Assign HOD to department
+    db_update_one("departments", dept_id, { "hod_id": hod_id })
+
+    # Add HOD role to user
+    user = db_find_one("users", id=hod_id)
+    roles = parse_roles_field(user["roles"])
+    if "hod" not in roles:
+        roles.append("hod")
+        db_update_one("users", hod_id, { "roles": json.dumps(roles) })
+
+    return {"message": "HOD assigned"}
+
+
+@app.post("/api/dept/{dept_id}/add-class-teacher")
+@require_role("hod")
+def add_class_teacher(dept_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+    user = get_user_row_by_email(payload.email)
+    if not user:
+        raise HTTPException(404, "User not found")
+
+    assign_role(user["id"], "class_teacher", dept_id=dept_id)
+    return {"message": "Class Teacher Added"}
+
+@app.post("/api/orgs/{org_id}/departments/{dept_id}/assign-hod")
+@require_any_role("admin")
+def assign_hod(org_id: str, dept_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+    if current_user.get("org_id") != org_id:
+        raise HTTPException(status_code=403, detail="Not your org")
+
+    user = get_user_row_by_email(payload.email)
+
+    if not user:
+        # create user if not exist
+        user_id = str(uuid.uuid4())
+        hashed_pass = hash_password(payload.password)
+        user = {
+            "id": user_id,
+            "email": payload.email,
+            "full_name": payload.full_name,
+            "roles": json.dumps(["hod"]),
+            "org_id": org_id,
+            "hashed_password": hashed_pass
+        }
+        db_insert_one("users", user)
+    else:
+        # update role if existing user
+        roles = parse_roles_field(user.get("roles"))
+        if "hod" not in roles:
+            roles.append("hod")
+        db_update_one("users", user["id"], {"roles": json.dumps(roles)})
+
+    # Store HOD–Department mapping
+    db_insert_one("department_hods", {
+        "id": str(uuid.uuid4()),
+        "org_id": org_id,
+        "dept_id": dept_id,
+        "hod_id": user["id"]
+    })
+
+    return {"message": "HOD assigned successfully"}
+@app.post("/api/departments/{dept_id}/add-class-teacher")
+@require_any_role("hod")
+def add_class_teacher(dept_id: str, payload: AddUserReq, current_user=Depends(get_current_user)):
+    # Check if this HOD owns this department
+    hod_map = db_find_one("department_hods", hod_id=current_user["id"], dept_id=dept_id)
+    if not hod_map:
+        raise HTTPException(status_code=403, detail="Not HOD of this department")
+
+    # Create user
+    user = get_user_row_by_email(payload.email)
+    if user:
+        raise HTTPException(status_code=400, detail="User already exists")
+
+    user_id = str(uuid.uuid4())
+    hashed_pass = hash_password(payload.password)
+
+    new_user = {
+        "id": user_id,
+        "email": payload.email,
+        "full_name": payload.full_name,
+        "roles": json.dumps(["class_teacher"]),
+        "org_id": current_user["org_id"],
+        "hashed_password": hashed_pass
+    }
+    db_insert_one("users", new_user)
+
+    # Attach class teacher → department
+    db_insert_one("dept_class_teachers", {
+        "id": str(uuid.uuid4()),
+        "dept_id": dept_id,
+        "class_teacher_id": user_id
+    })
+
+    return {"message": "Class Teacher added"}
+
+@app.get("/api/departments/{dept_id}/classes")
+@require_any_role("hod")
+def get_dept_classes(dept_id: str, current_user=Depends(get_current_user)):
+    hod_map = db_find_one("department_hods", hod_id=current_user["id"], dept_id=dept_id)
+    if not hod_map:
+        raise HTTPException(status_code=403, detail="Not HOD of this department")
+
+    classes = db_find_many("classes", department_id=dept_id)
+    return classes
+
+@app.get("/api/departments/{dept_id}/class-teachers")
+@require_any_role("hod")
+def list_class_teachers(dept_id: str, current_user=Depends(get_current_user)):
+    hod_map = db_find_one("department_hods", hod_id=current_user["id"], dept_id=dept_id)
+    if not hod_map:
+        raise HTTPException(status_code=403, detail="Not your department")
+
+    entries = db_find_many("dept_class_teachers", dept_id=dept_id)
+
+    teachers = []
+    for e in entries:
+        u = get_user_row(e["class_teacher_id"])
+        if u:
+            teachers.append(u)
+
+    return teachers
+
+@app.post('/api/departments/create')
+@require_any_role('admin')
+def create_department(req: CreateDeptReq, current_user=Depends(get_current_user)):
+    new_dept = {
+        "id": str(uuid.uuid4()),
+        "org_id": req.org_id,
+        "name": req.name,
+        "hod_id": None
+    }
+    db_insert_one('departments', new_dept)
+    return new_dept
+@app.get("/api/hod/department")
+@require_any_role("hod")
+def get_hod_department(current_user=Depends(get_current_user)):
+    hod_id = current_user["id"]
+
+    dept = db_find_one("departments", hod_id=hod_id)
+    if not dept:
+        raise HTTPException(status_code=404, detail="Department not assigned")
+
+    return dept
 
 @app.post('/api/auth/login')
 def login(req: LoginReq):

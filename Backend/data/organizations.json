@@ -3,5 +3,10 @@
     "id": "e5b07f02-fb8e-4cf5-96d9-adf78246f49c",
     "name": "Sahyadri",
     "org_type": "university"
+  },
+  {
+    "id": "18d03cfc-ad79-4fa8-b8f2-8271ace24d34",
+    "name": "canara",
+    "org_type": "university"
   }
 ]

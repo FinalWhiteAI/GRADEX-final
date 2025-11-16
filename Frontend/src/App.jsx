@@ -33,19 +33,22 @@ import AdminDashboard from "./pages/AdminDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import SubTeacherDashboard from "./pages/SubTeacherDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
+import HodDashboard from "./pages/HodDashboard";
 import Departments from "./pages/Departments";
 import ImportPage from "./pages/Import";
 import Classes from "./pages/ClassPage";
 import ClassPage from "./pages/ClassPage";
 import SubmissionsPage from  './pages/Submissions.jsx';
+import OurAppPage from  './pages/OurAppPage.jsx';
 
-
+import Portal from "./pages/Portal";
 export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<OurAppPage />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
 <Route
   path="/assignment/:id/submissions"
@@ -56,12 +59,21 @@ export default function App() {
   }
 />
           {/* Dashboards */}
+          <Route
+    path="/portal"
+    element={
+      <ProtectedRoute> {/* Protect it so only logged-in users see it */}
+        <Portal />
+      </ProtectedRoute>
+    }
+  />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/owner" element={<ProtectedRoute allowed={['owner']}><OwnerDashboard /></ProtectedRoute>} />
           <Route path="/admin/dashboard" element={<ProtectedRoute allowed={['admin']}><AdminDashboard /></ProtectedRoute>} />
           <Route path="/teacher/dashboard" element={<ProtectedRoute allowed={['class_teacher']}><TeacherDashboard /></ProtectedRoute>} />
           <Route path="/subteacher/dashboard" element={<ProtectedRoute allowed={['sub_teacher']}><SubTeacherDashboard /></ProtectedRoute>} />
           <Route path="/student/dashboard" element={<ProtectedRoute allowed={['student']}><StudentDashboard /></ProtectedRoute>} />
+          <Route path="/hod/dashboard" element={<ProtectedRoute allowed={['hod']}><HodDashboard /></ProtectedRoute>} />
 
           {/* Common routes */}
           <Route path="/departments" element={<ProtectedRoute allowed={['admin']}><Departments /></ProtectedRoute>} />

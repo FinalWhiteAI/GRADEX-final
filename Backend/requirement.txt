@@ -10,3 +10,6 @@ python-multipart
 pandas
 "python-jose[cryptography]" bcrypt
 openpyxl
+cloudinary
+firebase-admin 
+google-cloud-firestore

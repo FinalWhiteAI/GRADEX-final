@@ -70,8 +70,8 @@ export default function Classes() {
             className="bg-white dark:bg-gray-800 p-4 rounded-md shadow cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700"
             onClick={() => (window.location.href = `/class/${cls.id}`)}
           >
-            <h2 className="font-medium">{cls.title}</h2>
-            <p className="text-sm">{cls.description}</p>
+            <h2 className="font-medium">Title: {cls.title}</h2>
+            <p className="text-sm">Description: {cls.description}</p>
             <p className="text-xs text-gray-500">Code: {cls.class_code}</p>
           </div>
         ))}

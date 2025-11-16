@@ -25,5 +25,14 @@
     "content": "hi",
     "is_public": true,
     "sent_at": "2025-11-13 15:50:48.992836"
+  },
+  {
+    "id": "e168f852-794e-484e-af80-cdcbc3d1375d",
+    "class_id": "1d4d61c9-b6bd-423d-9017-c9177100ffb8",
+    "sender_id": "9ea225a6-5a25-4ce2-888c-937a7b4d5563",
+    "receiver_id": null,
+    "content": "hi student",
+    "is_public": true,
+    "sent_at": "2025-11-15 16:59:17.413584"
   }
 ]

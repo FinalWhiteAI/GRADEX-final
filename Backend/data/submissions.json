@@ -14,5 +14,23 @@
     "text_content": "nnnnnn",
     "file_path": "uploads/submissions/8453b8d9-20ce-4191-a9ce-24c88cb8c798/3adb7bf8-8cf7-453d-8aa6-ef0daf726f64/4e057e3334d0883a_Adobe_cert.pdf",
     "submitted_at": "2025-11-13 17:33:38.045022"
+  },
+  {
+    "id": "fd5db30e-a14c-45ff-a772-d45c92d0ea46",
+    "assignment_id": "cb4f9f80-b16a-41b4-b3cf-3ad0ba1b0c27",
+    "student_id": "aeb8640b-4321-4998-9303-de419f06ea2a",
+    "text_content": "sjjssjs",
+    "file_path": "uploads/submissions/cb4f9f80-b16a-41b4-b3cf-3ad0ba1b0c27/aeb8640b-4321-4998-9303-de419f06ea2a/c05fa9f290981d03_CSE Syllabus.pdf",
+    "submitted_at": "2025-11-15 17:21:11.829466"
+  },
+  {
+    "id": "70d40544-1a92-4c46-878a-2ca43b28a7a1",
+    "assignment_id": "bcb99180-f954-476e-8eea-94ec9f2a854f",
+    "student_id": "c6bf9733-d5e3-4a71-81e2-02e05debce97",
+    "text_content": null,
+    "file_path": "uploads/submissions/bcb99180-f954-476e-8eea-94ec9f2a854f/c6bf9733-d5e3-4a71-81e2-02e05debce97/b356a5fe3b0f2c5a_Challengers-resume.pdf",
+    "submitted_at": "2025-11-16 05:28:35.406169",
+    "grade": 10.0,
+    "graded_by": "c74b9c37-1c3a-4fd7-8652-d841a1123b38"
   }
 ]

@@ -1,0 +1,41 @@
+[
+  {
+    "id": "cf4c61e3-38af-406f-a924-ff95822a2329",
+    "dept_id": "5022a604-140e-409c-9481-461d4d4f3545",
+    "class_teacher_id": "85164692-1277-4120-a9de-8b35e3a4a8a1"
+  },
+  {
+    "id": "f3cd63e8-8232-4f61-98aa-b53230ff7eec",
+    "dept_id": "5022a604-140e-409c-9481-461d4d4f3545",
+    "class_teacher_id": "716dce03-1917-4b56-a210-dc8b7ed54e90"
+  },
+  {
+    "id": "c39c2dc2-94b4-4281-a181-f6cefa03175d",
+    "dept_id": "5022a604-140e-409c-9481-461d4d4f3545",
+    "class_teacher_id": "6f0dc61c-9ead-438b-a65f-6a4b7d1a761e"
+  },
+  {
+    "id": "0bf0a0fe-751f-4893-8468-0513f1462edd",
+    "dept_id": "5022a604-140e-409c-9481-461d4d4f3545",
+    "class_teacher_id": "b403cce3-a2f2-4d3e-a0cf-067b1d2eb6b2",
+    "section": "5D"
+  },
+  {
+    "id": "9f2e1d00-e985-49c3-96a4-d3961114dcad",
+    "dept_id": "5022a604-140e-409c-9481-461d4d4f3545",
+    "class_teacher_id": "4e6614d3-73bf-4be6-812c-0abc6cebe018",
+    "section": "5A"
+  },
+  {
+    "id": "63c1ef19-b0d3-4df8-bbf9-ab3b3e2156aa",
+    "dept_id": "6aaf1f80-6e5b-4a9f-81b6-0b82bee3c2ef",
+    "class_teacher_id": "0e42e9f8-19ad-483e-8603-b526c81db283",
+    "section": "4A"
+  },
+  {
+    "id": "2412f16d-fb67-4ad7-a647-d34ba39f7868",
+    "dept_id": "b2d1a15d-178f-44b5-898b-363ba4666285",
+    "class_teacher_id": "17814f37-8549-47fb-998e-b12e633e44e0",
+    "section": "7A"
+  }
+]
