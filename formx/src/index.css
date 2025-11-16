@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+/*
+  This block defines all your colors and fonts as CSS variables.
+  It is the correct syntax for Tailwind v4.
+  All @plugin "daisyui" lines have been removed.
+*/
+@theme {
+  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+  --shadow-soft-dark: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+
+  --color-accent: #B76E79;
+  --color-primary: #B76E79;
+
+  /* Light Mode */
+  --color-text-light: #1e3a8a;
+  --color-subtle-light: #4b5563;
+  --color-border-light: #d1d5db;
+  --color-card-light: #ffffff;
+  --color-background-light: #f9fafb;
+
+  /* Dark Mode */
+  --color-text-dark: #E0DFFF;
+  --color-subtle-dark: #A7A5E0;
+  --color-border-dark: #433E8A;
+  --color-card-dark: #1a1a2e;
+  --color-background-dark: #101022;
+}
+
+/* This line enables class-based dark mode (class="dark") */
+@variant dark (&:where(.dark, .dark *)) {}
